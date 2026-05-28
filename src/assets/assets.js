@@ -17,6 +17,11 @@ import bgdark from  './bgdark-rm.png'
 import customer from './customer.png'
 import lgindexpc from    './lgindexpc.png'
 import indexbgpc from   './indexcustomerdk.png'
+import atmimg    from    './atmimg.png'
+import finance   from     './finance.png'
+import banking   from     './banking.png'
+
+
 const assets = {
   lglogo,
   arrow_icon,
@@ -37,6 +42,9 @@ const assets = {
   customer,
   lgindexpc,
   indexbgpc,
+  atmimg,
+  finance,
+  banking,
 
   
 

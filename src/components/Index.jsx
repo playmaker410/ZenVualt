@@ -59,7 +59,50 @@ const Index = ({ }) => {
       <section className='pt-10  xl:pt-30'>
         <div>
           <p className='text-center text-zen-glow font-light  text-xs  sm:text-sm xl:leading-15'>Why Zenvault</p>
-          <h1 className='text-center xl:text-4xl text-2xl '>Global Payment Solutions</h1>
+          <h1 className='text-center xl:text-4xl text-3xl '>Global Payment Solutions</h1>
+        </div>
+
+        <div className='py-12 grid md:grid-cols-3 gap-7 px-5 text-black'>
+
+          <div className='flex flex-col items-center justify-center text-center bg-zen-light-card dark:bg-zen-card py-3 px-10 rounded-xl border border-zen-light-border dark:border-zen-border dark:text-zen-text'>
+
+            <img
+              src={assets.atmimg}
+              alt=""
+              className=' w-fit xl:w-16 sm:w-5 '
+            />
+
+            <p className='font-bold text-lg'>
+              Secure Banking
+            </p>
+          </div>
+
+          <div className='flex flex-col items-center justify-center text-center bg-zen-light-card dark:bg-zen-card py-3 px-10 rounded-xl border border-zen-light-border dark:border-zen-border dark:text-zen-text'>
+
+            <img
+              src={assets.finance}
+              alt=""
+              className='xl:w-16 sm:w-10'
+            />
+
+            <p className='font-bold text-lg'>
+              Flexible Loan
+            </p>
+          </div>
+
+          <div className='flex flex-col items-center justify-center text-center bg-zen-light-card dark:bg-zen-card py-3 px-10 rounded-xl border border-zen-light-border dark:border-zen-border dark:text-zen-text'>
+
+            <img
+              src={assets.banking}
+              alt=""
+              className='xl:w-16 sm:w-10 '
+            />
+
+            <p className='font-bold text-lg'>
+              Online Banking
+            </p>
+          </div>
+
         </div>
 
 

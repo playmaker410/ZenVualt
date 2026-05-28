@@ -7,7 +7,7 @@
 /* Move your custom colors here — v4 uses @theme not tailwind.config.js */
 @theme { 
   --color-zen-bg: #050816; 
-  --color-zen-card: #0A1022; 
+  --color-zen-card: #111928; 
   --color-zen-border: #13203A;
    --color-zen-primary: #0EA5FF; 
    --color-zen-secondary: #1D4ED8; 
@@ -33,7 +33,7 @@
       #0A1022 40%, 
       #071427 100%
        ); 
-
+       
       --background-image-zen-light-gradient:
           linear-gradient(135deg,
             #F8FAFF 0%,
