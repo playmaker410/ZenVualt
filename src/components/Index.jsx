@@ -201,58 +201,138 @@ const Index = ({ }) => {
 
             <p
               className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
-              Cards that work all across the world.
+              Unlock Greater Investment Potential
             </p>
 
             <p
               className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
-              Cards that work all across the world.
+              No ATM Fees. No Minimum Balance.No Overdraft Charges.
             </p>
           </div>
 
         </div>
 
       </section>
+
+
+
       {/* ==========================================================================WHY CHOOSE US ============================================================================== */}
 
       <section
-        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 py-20 gap-8 px-4 sm:px-6 xl:px-8'>
+        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 py-20 gap-8 px-4 sm:px-6 sm:py-10 xl:px-8'>
 
         {/* card 1 */}
-        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full active:scale-110 duration-100 active:border-b-4'>
           <DollarCircle className='bg-[#10B981] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
           <a href="#" className='text-2xl font-bold '> Money Transfer</a>
-          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
+          <p className='leading-7 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
         </div>
         {/* CARD 2 */}
 
-        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full active:scale-110 duration-100 active:border-b-4'>
           <ListUl className='bg-[#F97316] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
           <a href='#' className='text-2xl font-bold'>Late Alert </a>
-          <p className='leading-8 text-md flex-1'>Reach anyone, anywhere. Our platform makes sending money to friends and family around the world instant and effortless.</p>
+          <p className='leading-7 text-md flex-1'>Reach anyone, anywhere. Our platform makes sending money to friends and family around the world instant and effortless.</p>
         </div>
 
         {/* card 3 */}
-        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full active:scale-110 duration-100 active:border-b-4'>
           <ChartTrend className='bg-[#8B5CF6] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
-          <a href="#" className='text-2xl font-bold'> Money Transfer</a>
-          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
+          <a href="#" className='text-2xl font-bold'> Currency Chart </a>
+          <p className='leading-7 text-md flex-1'>Track every market shift in real time and trade smarter with live, interactive currency charts.</p>
         </div>
 
         {/* card 4 */}
 
-        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-7 h-full active:scale-110 duration-100 active:border-b-4'>
           <Bell className='bg-[#22D3EE] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
-          <a href="#" className='text-2xl font-bold'> Money Transfer</a>
-          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
+          <a href="#" className='text-2xl font-bold'> Notification </a>
+          <p className='leading-7 text-md flex-1'>Stay informed with real-time transaction alerts protected by end-to-end encryption, every step of the way.</p>
+        </div>
+      </section>
+
+
+
+      {/* ==============================================================================Security================================================================ */}
+
+
+      <section
+        className='grid xl:grid-cols-2 py-20 gap-16 px-5'>
+
+        <div className='w-full relative order-2'>
+          <img
+            src={assets.security} alt=""
+            className='relative z-10 rounded-2xl w-fit object-contain' />
+
+
         </div>
 
 
 
+        <div
+          className='flex flex-col justify-center gap-4 order-1'>
+          <p className='text-blue-500 font-semibold '>
+            Banking Protection
+          </p>
 
+          <h1
+            className='text-3xl sm:text-4xl xl:text-5xl font-extrabold'>
+            Your Benefits
+          </h1>
+          <p
+            className='font-light text-zen-muted  pb-3'>
+            Your one-stop digital banking platform.
+          </p>
 
+          <div className='flex flex-col gap-4 '>
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Global Coverage
+            </p>
+
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Easy Transfer Method
+            </p>
+
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Global 24/7 Support
+            </p>
+
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Lowest Fee
+            </p>
+
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Instant Processing
+            </p>
+
+            <p
+              className='flex gap-3  items-center'> <Check fill='white' className='rounded-full  bg-[#1E3A8A] w-6 h-6 shrink-0' />
+              Bank Lavel Security
+            </p>
+
+          </div>
+
+        </div>
 
       </section>
+
+
+
+      {/* =================================================================== Our Reviews ========================================================================= */}
+
+      <section>
+        <p className='text-blue-500 text-center font-semibold '>
+          Banking Protection
+        </p>
+      </section>
+
+
+
 
     </div>
 

@@ -19,10 +19,10 @@ import banking   from     './banking.png'
 import happybanking  from  './happybanking.png'
 import happy from           './happy.jpg'
 import bgimage1 from       './bgImage1.png'
-import currency  from       './currency.png'
-import money_tr  from       './money_transfer.png'
-import setting from         './setting.png'
-import rate_alrt from       './rate_alert.png'
+import compressed from      './compressed.jpg'
+import whychooseimg from    './whychoose.jpg'
+import security from    './security-1.png'
+
 
 const assets = {
   lglogo,
@@ -46,10 +46,11 @@ const assets = {
   happybanking,
   happy,
   bgimage1,
-  currency,
-  money_tr,
-  setting, 
-  rate_alrt,
+  compressed,
+  whychooseimg,
+  security,
+
+  
 
   
 
