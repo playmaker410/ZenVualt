@@ -33,7 +33,19 @@
       #0A1022 40%, 
       #071427 100%
        ); 
+
+       /* card baground color */
+       --background-image-card-col-gradient:
+        linear-gradient(135deg,
+          #0A1929 0%,
+          #1B3B59 100%
+        );
        
+        --background-image-light-card-gradient:
+            linear-gradient(135deg,
+              #E0E7EC 0%,
+              #BCC6CC 100%);
+
       --background-image-zen-light-gradient:
           linear-gradient(135deg,
             #F8FAFF 0%,

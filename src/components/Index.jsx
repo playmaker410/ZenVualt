@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import assets from '../assets/assets'
-import { Check } from '@boxicons/react'
+import { Check, DollarCircle, ListUl, ChartTrend, Bell } from '@boxicons/react'
 
 
 const Index = ({ }) => {
@@ -79,6 +79,9 @@ const Index = ({ }) => {
       </div>
 
       {/* =================================================================================================Home Page Ends here==================================================================================== */}
+
+
+      {/* ===================================================================Our features ================================================================================== */}
       <section className='pt-10  xl:pt-20'>
         <div>
           <p
@@ -213,41 +216,40 @@ const Index = ({ }) => {
       {/* ==========================================================================WHY CHOOSE US ============================================================================== */}
 
       <section
-        className='grid xl:grid-cols-2  py-20 gap-16 px-5'>
-        <div
-          className='grid xl:grid-col-4'>
-          {/* card 1 */}
-          <div>
-            <img
-              src={assets.money_tr}
-              alt="" />
-            <p>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
-          </div>
+        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 py-20 gap-8 px-4 sm:px-6 xl:px-8'>
 
-          <div>
-            <img
-              src={assets.money_tr}
-              alt="" />
-            <p>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
-          </div>
-
-          <div>
-            <img
-              src={assets.money_tr}
-              alt="" />
-            <p>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
-          </div>
-
-          <div>
-            <img
-              src={assets.money_tr}
-              alt="" />
-            <p>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
-          </div>
-
-
-
+        {/* card 1 */}
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+          <DollarCircle className='bg-[#10B981] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
+          <a href="#" className='text-2xl font-bold '> Money Transfer</a>
+          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
         </div>
+        {/* CARD 2 */}
+
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+          <ListUl className='bg-[#F97316] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
+          <a href='#' className='text-2xl font-bold'>Late Alert </a>
+          <p className='leading-8 text-md flex-1'>Reach anyone, anywhere. Our platform makes sending money to friends and family around the world instant and effortless.</p>
+        </div>
+
+        {/* card 3 */}
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+          <ChartTrend className='bg-[#8B5CF6] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
+          <a href="#" className='text-2xl font-bold'> Money Transfer</a>
+          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
+        </div>
+
+        {/* card 4 */}
+
+        <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+          <Bell className='bg-[#22D3EE] rounded-2xl w-8 h-8 sm:w-10 sm:h-10 xl:w-12 xl:h-12 border border-[rgba(16,185,129, 0.3)] ' />
+          <a href="#" className='text-2xl font-bold'> Money Transfer</a>
+          <p className='leading-8 text-md flex-1'>With our digital platform, you may send money to relatives and friends all around the world in real time</p>
+        </div>
+
+
+
+
 
 
       </section>
