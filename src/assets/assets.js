@@ -22,7 +22,10 @@ import bgimage1 from       './bgImage1.png'
 import compressed from      './compressed.jpg'
 import whychooseimg from    './whychoose.jpg'
 import security from    './security-1.png'
-
+import client1 from      './client-1.jpg'
+import client2 from      './client-2.jpg'
+import client3 from      './client-3.jpg'
+import client4 from      './client-4.jpg'
 
 const assets = {
   lglogo,
@@ -49,6 +52,11 @@ const assets = {
   compressed,
   whychooseimg,
   security,
+  client1,
+  client2,
+  client3,
+  client4,
+  
 
   
 

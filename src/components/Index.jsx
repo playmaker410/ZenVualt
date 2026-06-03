@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import assets from '../assets/assets'
-import { Check, DollarCircle, ListUl, ChartTrend, Bell } from '@boxicons/react'
+import { Check, DollarCircle, ListUl, ChartTrend, Bell, ChevronLeft, ChevronRight } from '@boxicons/react'
 
 
 const Index = ({ }) => {
   const [activeCard, setActiveCard] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
   return (
     <div
       className='py-20 px-3 sm:px-10 lg:px-24 xl:px-40 w-full dark:text-white bg-zen-light-gradient dark:bg-zen-gradient'>
@@ -29,9 +30,10 @@ const Index = ({ }) => {
             </p>
           </div>
           <h1
-            className='text-4xl sm:text-5xl md:text-6xl xl:text-[84px] font-medium xl:leading-[95px]  max-w-5xl'>
+            className='text-4xl sm:text-5xl md:text-6xl xl:text-[80px] font-bold xl:leading-[95px]  max-w-5xl'>
             Secure Banking for <br /> <span className='text-zen-primary'> Modern Life  </span>
           </h1>
+
 
           <p
             className='font-normal text-sm xl:text-lg  pt-3.5 px-0.5 '>
@@ -85,11 +87,11 @@ const Index = ({ }) => {
       <section className='pt-10  xl:pt-20'>
         <div>
           <p
-            className='text-center text-zen-glow font-extrabold  text-lg xl:leading-5'>
+            className='text-center text-blue-500 font-semibold xl:leading-5'>
             Why Zenvault
           </p>
           <h1
-            className='text-center font-extrabold xl:text-6xl text-3xl'>
+            className='text-center font-bold xl:text-6xl text-3xl'>
             Global Payment Solutions
           </h1>
         </div>
@@ -329,9 +331,157 @@ const Index = ({ }) => {
 
 
       <section>
-        <p className='text-blue-500 text-center font-semibold '>
-          Banking Protection
-        </p>
+
+        {/* Heading */}
+        <div className='flex flex-col justify-center items-center gap-2'>
+          <p className='text-blue-500 font-semibold'>Our Customers</p>
+          <h1 className='text-center font-bold xl:text-6xl text-3xl mx-auto max-w-3xl'>
+            More Than 18M+ Happy Customers Trust Our Services
+          </h1>
+        </div>
+
+        {/* Cards */}
+        {/* Cards */}
+        <div className='py-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7'>
+
+          {currentIndex === 0 && (
+            <>
+              {/* card 1 */}
+              <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+                <img src={assets.client1} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>Tom Harris</h2>
+                  <p className='text-zen-muted'>Engineer</p>
+                </div>
+              </div>
+
+              {/* card 2 */}
+              <div className='hidden sm:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
+                <img src={assets.client2} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>Sarah Johnson</h2>
+                  <p className='text-zen-muted'>Designer</p>
+                </div>
+              </div>
+
+              {/* card 3 */}
+              <div className='hidden xl:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
+                <img src={assets.client3} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>James Brown</h2>
+                  <p className='text-zen-muted'>Doctor</p>
+                </div>
+              </div>
+            </>
+          )}
+
+          {currentIndex === 1 && (
+            <>
+              {/* card 4 */}
+              <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
+                <img src={assets.client4} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>Lisa Adams</h2>
+                  <p className='text-zen-muted'>Teacher</p>
+                </div>
+              </div>
+
+              {/* card 5 */}
+              <div className='hidden sm:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
+                <img src={assets.client5} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>David Clark</h2>
+                  <p className='text-zen-muted'>Businessman</p>
+                </div>
+              </div>
+
+              {/* card 6 */}
+              <div className='hidden xl:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
+                <img src={assets.client6} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>
+                  I've been with ZadexCore for four years. I went through a loan modification with them,
+                  as well as a six-month forbearance. I also have a credit card with them.
+                  They are always there to help me.
+                </p>
+                <div>
+                  <h2 className='font-bold text-2xl'>Grace Lee</h2>
+                  <p className='text-zen-muted'>Accountant</p>
+                </div>
+              </div>
+            </>
+          )}
+
+        </div>
+
+        {/* Controls */}
+        <div className='flex flex-col items-center gap-4'>
+
+          {/* Arrow Buttons */}
+          <div className='flex gap-4'>
+            <button
+              onClick={() => setCurrentIndex(0)}
+              disabled={currentIndex === 0}
+              className='bg-zen-light-card dark:bg-zen-card p-3 rounded-full border 
+                   border-zen-light-border dark:border-zen-border 
+                   disabled:opacity-30 hover:bg-blue-500 hover:text-white 
+                   transition-colors'
+            >
+              <ChevronLeft className='w-5 h-5' />
+            </button>
+
+            <button
+              onClick={() => setCurrentIndex(1)}
+              disabled={currentIndex === 1}
+              className='bg-zen-light-card dark:bg-zen-card p-3 rounded-full border 
+                   border-zen-light-border dark:border-zen-border 
+                   disabled:opacity-30 hover:bg-blue-500 hover:text-white 
+                   transition-colors'
+            >
+              <ChevronRight className='w-5 h-5' />
+            </button>
+          </div>
+
+          {/* Dots */}
+          <div className='flex gap-2'>
+            <button
+              onClick={() => setCurrentIndex(0)}
+              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === 0 ? 'bg-blue-500 w-6' : 'bg-gray-300 dark:bg-gray-600 w-2'
+                }`}
+            />
+            <button
+              onClick={() => setCurrentIndex(1)}
+              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === 1 ? 'bg-blue-500 w-6' : 'bg-gray-300 dark:bg-gray-600 w-2'
+                }`}
+            />
+          </div>
+
+        </div>
+
       </section>
 
 
