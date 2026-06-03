@@ -62,7 +62,7 @@ const Navbar = ({ theme, setTheme }) => {
       <div className='flex gap-1.5 lg:hidden md:gap-6 '>
 
         <ThemeToggleButton theme={theme} setTheme={setTheme} />
-        <User color='white' stroke='white' pack='filled' className='lg:hidden bg-black rounded-full' size={window.innerWidth < 768 ? 16 : 32} />
+        {/*<User color='white' stroke='white' pack='filled' className='lg:hidden bg-black rounded-full' size={window.innerWidth < 768 ? 16 : 32} />*/}
         <Menu className='lg:hidden text-black dark:text-white w-10 h-10 md:w-8 md-h-10' onClick={() => setIsMenuOpen(!isMenuOpen)} size={window.innerWidth < 768 ? 16 : 32} />
 
       </div>
