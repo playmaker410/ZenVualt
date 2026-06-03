@@ -7,7 +7,7 @@ const Index = ({ }) => {
   const [activeCard, setActiveCard] = useState(null)
   return (
     <div
-      className='py-20 px-4 sm:px-10 lg:px-24 xl:px-40 w-full dark:text-white bg-zen-light-gradient dark:bg-zen-gradient'>
+      className='py-20 px-3 sm:px-10 lg:px-24 xl:px-40 w-full dark:text-white bg-zen-light-gradient dark:bg-zen-gradient'>
 
       <div className='grid xl:grid-cols-2  gap-10 '>
 
@@ -94,7 +94,7 @@ const Index = ({ }) => {
           </h1>
         </div>
 
-        <div className='py-12 grid md:grid-cols-3 gap-7 px-5 text-black'>
+        <div className='py-12 grid md:grid-cols-3 gap-7 text-black'>
 
           {/* Card 1 */}
           <div
@@ -168,7 +168,7 @@ const Index = ({ }) => {
       {/* ====================================================================Smart Banking ====================================================================== */}
 
       <section
-        className='grid xl:grid-cols-2 py-20 gap-16 px-5'>
+        className='grid xl:grid-cols-2 py-20 gap-16 '>
 
         <div className='w-full relative'>
           <img
@@ -219,7 +219,7 @@ const Index = ({ }) => {
       {/* ==========================================================================WHY CHOOSE US ============================================================================== */}
 
       <section
-        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 py-20 gap-8 px-4 sm:px-6 sm:py-10 xl:px-8'>
+        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 py-20 gap-8 sm:py-10'>
 
         {/* card 1 */}
         <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full active:scale-110 duration-100 active:border-b-4'>
@@ -257,7 +257,7 @@ const Index = ({ }) => {
 
 
       <section
-        className='grid xl:grid-cols-2 py-20 gap-16 px-5'>
+        className='grid xl:grid-cols-2 py-20 gap-16 '>
 
         <div className='w-full relative order-2'>
           <img
@@ -324,6 +324,9 @@ const Index = ({ }) => {
 
 
       {/* =================================================================== Our Reviews ========================================================================= */}
+
+
+
 
       <section>
         <p className='text-blue-500 text-center font-semibold '>
