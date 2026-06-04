@@ -4,6 +4,7 @@ import close_icon from './close_icon.svg'
 import email_icon from './email_icon.svg'
 import facebook_icon from './facebook_icon.svg'
 import instagram_icon from './instagram_icon.svg'
+import twitter_icon from './twitter_icon.svg'
 import sun_icon from './sun_icon.svg'
 import moon_icon from './moon_icon.svg'
 import darkbglogo from './darkbglogo.png'
@@ -26,6 +27,10 @@ import client1 from      './client-1.jpg'
 import client2 from      './client-2.jpg'
 import client3 from      './client-3.jpg'
 import client4 from      './client-4.jpg'
+import  blog1  from     './blog-1.jpg'
+import  blog2 from      './blog-2.jpg'
+import   blog3  from      './blog3.jpg'
+
 
 const assets = {
   lglogo,
@@ -35,6 +40,7 @@ const assets = {
   email_icon,
   facebook_icon,
   instagram_icon,
+  twitter_icon,
   sun_icon, 
   moon_icon,
   darkbglogo,
@@ -56,6 +62,9 @@ const assets = {
   client2,
   client3,
   client4,
+  blog1,
+  blog2,
+  blog3,
   
 
   
