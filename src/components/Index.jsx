@@ -6,6 +6,16 @@ import { Check, DollarCircle, ListUl, ChartTrend, Bell, ChevronLeft, ChevronRigh
 const Index = ({ }) => {
   const [activeCard, setActiveCard] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  // At the top of your component, replace the reviews state:
+  const reviews = [
+    { img: assets.client1, name: 'Tom Harris', role: 'Engineer', text: "I've been with ZadexCore for four years. I went through a loan modification with them, as well as a six-month forbearance. I also have a credit card with them. They are always there to help me." },
+    { img: assets.client2, name: 'Sarah Johnson', role: 'Designer', text: "I've been with ZadexCore for four years. I went through a loan modification with them, as well as a six-month forbearance. I also have a credit card with them. They are always there to help me." },
+    { img: assets.client3, name: 'James Brown', role: 'Doctor', text: "I've been with ZadexCore for four years. I went through a loan modification with them, as well as a six-month forbearance. I also have a credit card with them. They are always there to help me." },
+    { img: assets.client4, name: 'Lisa Adams', role: 'Teacher', text: "I've been with ZadexCore for four years. I went through a loan modification with them, as well as a six-month forbearance. I also have a credit card with them. They are always there to help me." },
+    // add more reviews here anytime
+  ]
+
   return (
     <div
       className='py-20 px-3 sm:px-10 lg:px-24 xl:px-40 w-full dark:text-white bg-zen-light-gradient dark:bg-zen-gradient'>
@@ -331,7 +341,6 @@ const Index = ({ }) => {
 
 
       <section>
-
         {/* Heading */}
         <div className='flex flex-col justify-center items-center gap-2'>
           <p className='text-blue-500 font-semibold'>Our Customers</p>
@@ -341,101 +350,25 @@ const Index = ({ }) => {
         </div>
 
         {/* Cards */}
-        {/* Cards */}
-        <div className='py-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7'>
-
-          {currentIndex === 0 && (
-            <>
-              {/* card 1 */}
-              <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
-                <img src={assets.client1} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
+        <div className='py-12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7 overflow-hidden'>
+          {reviews
+            .slice(currentIndex, currentIndex + 3)
+            .map((review, i) => (
+              <div
+                key={review.name}
+                className={`bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full
+            ${i === 1 ? 'hidden sm:flex' : 'flex'}
+            ${i === 2 ? 'hidden xl:flex' : 'flex'}
+          `}
+              >
+                <img src={review.img} alt="" className='w-10 h-10 rounded-full object-cover' />
+                <p className='py-5 leading-7'>{review.text}</p>
                 <div>
-                  <h2 className='font-bold text-2xl'>Tom Harris</h2>
-                  <p className='text-zen-muted'>Engineer</p>
+                  <h2 className='font-bold text-2xl'>{review.name}</h2>
+                  <p className='text-zen-muted'>{review.role}</p>
                 </div>
               </div>
-
-              {/* card 2 */}
-              <div className='hidden sm:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
-                <img src={assets.client2} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
-                <div>
-                  <h2 className='font-bold text-2xl'>Sarah Johnson</h2>
-                  <p className='text-zen-muted'>Designer</p>
-                </div>
-              </div>
-
-              {/* card 3 */}
-              <div className='hidden xl:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
-                <img src={assets.client3} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
-                <div>
-                  <h2 className='font-bold text-2xl'>James Brown</h2>
-                  <p className='text-zen-muted'>Doctor</p>
-                </div>
-              </div>
-            </>
-          )}
-
-          {currentIndex === 1 && (
-            <>
-              {/* card 4 */}
-              <div className='bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex flex-col gap-4 h-full'>
-                <img src={assets.client4} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
-                <div>
-                  <h2 className='font-bold text-2xl'>Lisa Adams</h2>
-                  <p className='text-zen-muted'>Teacher</p>
-                </div>
-              </div>
-
-              {/* card 5 */}
-              <div className='hidden sm:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
-                <img src={assets.client5} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
-                <div>
-                  <h2 className='font-bold text-2xl'>David Clark</h2>
-                  <p className='text-zen-muted'>Businessman</p>
-                </div>
-              </div>
-
-              {/* card 6 */}
-              <div className='hidden xl:flex bg-light-card-gradient dark:bg-card-col-gradient rounded-2xl p-5 flex-col gap-4 h-full'>
-                <img src={assets.client6} alt="" className='w-10 h-10 rounded-full object-cover' />
-                <p className='py-5 leading-7'>
-                  I've been with ZadexCore for four years. I went through a loan modification with them,
-                  as well as a six-month forbearance. I also have a credit card with them.
-                  They are always there to help me.
-                </p>
-                <div>
-                  <h2 className='font-bold text-2xl'>Grace Lee</h2>
-                  <p className='text-zen-muted'>Accountant</p>
-                </div>
-              </div>
-            </>
-          )}
-
+            ))}
         </div>
 
         {/* Controls */}
@@ -444,44 +377,41 @@ const Index = ({ }) => {
           {/* Arrow Buttons */}
           <div className='flex gap-4'>
             <button
-              onClick={() => setCurrentIndex(0)}
+              onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
               disabled={currentIndex === 0}
               className='bg-zen-light-card dark:bg-zen-card p-3 rounded-full border 
-                   border-zen-light-border dark:border-zen-border 
-                   disabled:opacity-30 hover:bg-blue-500 hover:text-white 
-                   transition-colors'
+          border-zen-light-border dark:border-zen-border 
+          disabled:opacity-30 hover:bg-blue-500 hover:text-white 
+          transition-colors'
             >
               <ChevronLeft className='w-5 h-5' />
             </button>
 
             <button
-              onClick={() => setCurrentIndex(1)}
-              disabled={currentIndex === 1}
+              onClick={() => setCurrentIndex(prev => Math.min(reviews.length - 3, prev + 1))}
+              disabled={currentIndex >= reviews.length - 1}
               className='bg-zen-light-card dark:bg-zen-card p-3 rounded-full border 
-                   border-zen-light-border dark:border-zen-border 
-                   disabled:opacity-30 hover:bg-blue-500 hover:text-white 
-                   transition-colors'
+          border-zen-light-border dark:border-zen-border 
+          disabled:opacity-30 hover:bg-blue-500 hover:text-white 
+          transition-colors'
             >
               <ChevronRight className='w-5 h-5' />
             </button>
           </div>
 
-          {/* Dots */}
+          {/* Dots — one per card */}
           <div className='flex gap-2'>
-            <button
-              onClick={() => setCurrentIndex(0)}
-              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === 0 ? 'bg-blue-500 w-6' : 'bg-gray-300 dark:bg-gray-600 w-2'
-                }`}
-            />
-            <button
-              onClick={() => setCurrentIndex(1)}
-              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === 1 ? 'bg-blue-500 w-6' : 'bg-gray-300 dark:bg-gray-600 w-2'
-                }`}
-            />
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-blue-500 w-6' : 'bg-gray-300 dark:bg-gray-600 w-2'
+                  }`}
+              />
+            ))}
           </div>
 
         </div>
-
       </section>
 
 
