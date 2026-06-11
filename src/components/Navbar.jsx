@@ -28,12 +28,12 @@ const Navbar = ({ theme, setTheme }) => {
 
 
       <div className='hidden lg:flex gap-6 text-md dark:text-white font-semibold text-base '>
-        <NavLink to="/" end className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Home</NavLink>
-        <NavLink to="/buisness" className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Buisness</NavLink>
-        <NavLink to="/personal" className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Personal</NavLink>
-        <NavLink to="/card" className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Card</NavLink>
-        <NavLink to="/loan" className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Loans</NavLink>
-        <NavLink to="/contact" className={({ isActive }) => `lg:hover:border-b-2 hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Contact Us</NavLink>
+        <NavLink to="/" end className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Home</NavLink>
+        <NavLink to="/buisness" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Buisness</NavLink>
+        <NavLink to="/personal" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Personal</NavLink>
+        <NavLink to="/card" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Card</NavLink>
+        <NavLink to="/loan" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Loans</NavLink>
+        <NavLink to="/contact" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Contact Us</NavLink>
       </div>
 
 

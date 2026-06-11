@@ -30,6 +30,9 @@ import client4 from      './client-4.jpg'
 import  blog1  from     './blog-1.jpg'
 import  blog2 from      './blog-2.jpg'
 import   blog3  from      './blog3.jpg'
+import Buisness from      './business_04.png'
+import breadcrumb  from  './breadcrumb-1.png'
+import personal   from   './personal_03.png'
 
 
 const assets = {
@@ -65,6 +68,9 @@ const assets = {
   blog1,
   blog2,
   blog3,
+  Buisness,
+  breadcrumb,
+  personal,
   
 
   
