@@ -9,7 +9,7 @@ const Loan = () => {
     return (
         <div className='bg-zen-light-bg dark:bg-zen-bg px-4 '>
 
-            <div className='xl:flex xl:p-12 sm: xl:justify-between'>
+            <div className='xl:flex xl:p-12  xl:justify-between'>
 
                 <div className='flex flex-col gap-2 w-full' >
                     <p className='text-2xl xl:text-5xl font-bold '>Loans</p>
@@ -29,13 +29,13 @@ const Loan = () => {
 
             </div>
 
-            <div className='grid xl:grid-cols-2 place-items-end xl:mx-50'>
+            <div className='grid xl:grid-cols-2 place-items-end xl:mx-[12.5rem]'>
 
                 <div className=' order-1 xl:order-1'>
-                    <img src={assets.personal} alt="" className='rounded' />
+                    <img src={assets.personal} alt="" className='rounded h-auto w-full ' />
                 </div>
 
-                <div className='flex flex-col gap-7 text-bold w-100 p-5 bg-[#f9f9f9] dark:bg-[#0a0a0a] rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] border border-gray-200/40 dark:border-white/10 order-3 xl:order-2  '>
+                <div className='flex flex-col gap-7 text-bold xl:w-100 w-full p-5 bg-[#f9f9f9] dark:bg-[#0a0a0a] rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] border border-gray-200/40 dark:border-white/10 order-3 xl:order-2  '>
                     <h2 className='text-2xl xl:text-3xl font-bold text-[#1a1a1a] dark:text-white' >All Services</h2>
 
                     <Link to="/buisness" className='flex  justify-between p-4 bg-[#ffffff] dark:bg-[#1c1c1c] rounded-md hover:text-zen-primary' >Business <ChevronRight className='rounded-full w-6 h-6 shrink-0' /></Link>
