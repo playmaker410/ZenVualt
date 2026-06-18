@@ -33,7 +33,8 @@ import   blog3  from      './blog3.jpg'
 import Buisness from      './business_04.png'
 import breadcrumb  from  './breadcrumb-1.png'
 import personal   from   './personal_03.png'
-
+import logindk from './logdark.png'
+import login   from  './login.png'
 
 const assets = {
   lglogo,
@@ -71,6 +72,8 @@ const assets = {
   Buisness,
   breadcrumb,
   personal,
+  logindk,
+  login,
   
 
   
