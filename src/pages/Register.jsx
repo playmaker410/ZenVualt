@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
     Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, ArrowLeft,
     User, Phone, Globe, CreditCard, Check, Zap, Headphones
@@ -133,12 +133,42 @@ const Register = ({ theme }) => {
         setError('')
         setStep((s) => Math.max(s - 1, 1))
     }
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if (!validateStep()) return
         setLoading(true)
-        setTimeout(() => setLoading(false), 2000)
+        setError('')
+
+        try {
+            const res = await fetch('http://localhost:8080/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    first_name: form.firstName,
+                    middle_name: form.middleName,
+                    last_name: form.lastName,
+                    phone: form.phone,
+                    email: form.email,
+                    country: form.country,
+                    bank_pin: form.pin,
+                    password: form.password
+                }),
+            })
+
+
+            const data = await res.json()
+            if (!res.ok) {
+                setError(data || 'Registration failed')
+                setLoading(false)
+                return
+            }
+            navigate('//dashboard/overview')
+        } catch (err) {
+            setError('Could not Connect to server ')
+            setLoading(false)
+        }
     }
 
     return (

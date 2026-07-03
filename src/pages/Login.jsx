@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, Zap, Headphones, User, Phone } from 'lucide-react'
 import assets from '../assets/assets'
 
@@ -7,12 +7,40 @@ const Login = ({ theme }) => {
     const [showPassword, setShowPassword] = useState(false)
     const [form, setForm] = useState({ email: '', password: '', remember: false })
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        setTimeout(() => setLoading(false), 2000)
+        setError('')
+        try {
+            const res = await fetch('http://localhost:8080/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: form.email,
+                    password: form.password
+                }),
+
+            })
+
+
+            const data = await res.json()
+            if (!res.ok) {
+                setError(data || 'Registration failed')
+                setLoading(false)
+                return
+            }
+            navigate('/dashboard/overview')
+        } catch (err) {
+            setError('Could not Connect to server ')
+            setLoading(false)
+        }
     }
+
+
+
 
     const features = [
         { icon: ShieldCheck, title: 'Bank-Grade Security', desc: '256-bit encryption keeps you safe' },

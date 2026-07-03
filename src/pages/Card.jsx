@@ -1,7 +1,6 @@
-import React from 'react'
 import assets from '../assets/assets'
 import { Link, NavLink } from 'react-router-dom'
-import { C, ChevronRight } from '@boxicons/react'
+import { ChevronRight } from '@boxicons/react'
 import Footer from '../components/Footer'
 
 const Card = () => {
@@ -29,7 +28,7 @@ const Card = () => {
 
             </div>
 
-            <div className='grid xl:grid-cols-2 xl:place-items-end xl:mx-[12.5rem]'>
+            <div className='grid xl:grid-cols-2 xl:place-items-end xl:mx-50'>
 
                 <div className=' order-1 xl:order-1'>
                     <img src={assets.personal} alt="" className='rounded h-auto w-full' />
