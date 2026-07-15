@@ -17,12 +17,16 @@ func Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var firstname, lastname, email string
+	var firstname, lastname, email, AccountNo string
 
-	err := db.DB.QueryRow("SELECT first_name, last_name FROM  users WHERE id = ? ", userID).Scan(&firstname, &lastname)
+	err := db.DB.QueryRow(`SELECT u.first_name, u.last_name , a.account_number
+
+	 FROM  users u 
+	 JOIN accounts a ON a.user_id = u.id
+	 WHERE u.id = ? `, userID).Scan(&firstname, &lastname, &AccountNo)
 
 	if err != nil {
-		http.Error(w, "User not found", http.StatusNotFound)
+		SendError(w, "User not found", http.StatusNotFound)
 		return
 	}
 
@@ -31,6 +35,7 @@ func Me(w http.ResponseWriter, r *http.Request) {
 		FirstName: strings.Title(strings.ToLower(firstname)),
 		LastName:  strings.Title(strings.ToLower(lastname)),
 		Email:     email,
+		AccountNo: AccountNo,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

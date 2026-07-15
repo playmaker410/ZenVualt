@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ProtectedRoute from './components/ProctectedRoute';
+import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Index from './components/Index';
 import { Route, Routes, BrowserRouter, useLocation } from 'react-router-dom'
@@ -41,19 +43,28 @@ const AppLayout = ({ theme, setTheme }) => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login theme={theme} />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/dashboard/*' element={<Dashboard accountno={'90076689009'} theme={theme} setTheme={setTheme} />}>
-          <Route path='overview' element={<Overview />} />
-          <Route path='transactions' element={<Transactions theme={theme} setTheme={setTheme} />} />
-          <Route path='cards' element={<Cards theme={theme} setTheme={setTheme} />} />
-          <Route path='local-transfer' element={<LocalTransfer theme={theme} setTheme={setTheme} />} />
-          <Route path='international' element={<InternationalWire theme={theme} setTheme={setTheme} />} />
-          <Route path='deposit' element={<Deposit theme={theme} setTheme={setTheme} />} />
-          <Route path='loan-request' element={<LoanReq theme={theme} setTheme={setTheme} />} />
-          <Route path='tax-refund' element={<Irs theme={theme} setTheme={setTheme} />} />
-          <Route path='loan-history' element={<Loanhistory />} />
-          <Route path='settings' element={<Setting />} />
-          <Route path='support' element={<Support />} />
 
+
+
+
+
+        <Route element={
+          <ProtectedRoute />}>
+
+          <Route path='/dashboard/*' element={<Dashboard theme={theme} setTheme={setTheme} />}>
+            <Route path='overview' element={<Overview />} />
+            <Route path='transactions' element={<Transactions theme={theme} setTheme={setTheme} />} />
+            <Route path='cards' element={<Cards theme={theme} setTheme={setTheme} />} />
+            <Route path='local-transfer' element={<LocalTransfer theme={theme} setTheme={setTheme} />} />
+            <Route path='international' element={<InternationalWire theme={theme} setTheme={setTheme} />} />
+            <Route path='deposit' element={<Deposit theme={theme} setTheme={setTheme} />} />
+            <Route path='loan-request' element={<LoanReq theme={theme} setTheme={setTheme} />} />
+            <Route path='tax-refund' element={<Irs theme={theme} setTheme={setTheme} />} />
+            <Route path='loan-history' element={<Loanhistory />} />
+            <Route path='settings' element={<Setting />} />
+            <Route path='support' element={<Support />} />
+
+          </Route>
         </Route>
 
       </Routes>
@@ -78,9 +89,13 @@ const App = () => {
   }, [theme]);
 
   return (
+
     <BrowserRouter>
-      <AppLayout theme={theme} setTheme={setTheme} />
+      <AuthProvider>
+        <AppLayout theme={theme} setTheme={setTheme} />
+      </AuthProvider>
     </BrowserRouter>
+
   );
 }
 export default App;

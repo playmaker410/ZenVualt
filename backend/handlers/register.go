@@ -40,10 +40,12 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if strings.Contains(err.Error(), "Duplicate entry") {
 			SendError(w, "An account with this email already exists", http.StatusInternalServerError)
+			return
 
 		}
 
 		SendError(w, "Error Saving User", http.StatusInternalServerError)
+		return
 	}
 
 	newID, err := result.LastInsertId()
@@ -64,7 +66,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = db.DB.Exec(`INSERT INTO account(user_id, account_number, balance) VALUES(?,?,?)`, Accountno, newID, 0.00)
+	_, err = db.DB.Exec(`INSERT INTO accounts(user_id, account_number, balance) VALUES(?,?,?)`, newID, Accountno, 0.00)
 
 	if err != nil {
 		if strings.Contains(err.Error(), "Duplicate entry") {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Await, Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, Zap, Headphones, User, Phone } from 'lucide-react'
 import assets from '../assets/assets'
 
@@ -26,6 +27,8 @@ const Login = ({ theme }) => {
 
             })
 
+            const { CheckAuth } = useAuth()
+
 
             const data = await res.json()
             if (!res.ok) {
@@ -33,6 +36,8 @@ const Login = ({ theme }) => {
                 setLoading(false)
                 return;
             }
+
+            await CheckAuth()
             navigate('/dashboard/overview')
         } catch (err) {
             setError('Could not Connect to server ')

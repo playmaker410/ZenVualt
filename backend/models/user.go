@@ -18,7 +18,7 @@ type UserInfo struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	AccountNo string `json: "acount_no"`
+	AccountNo string `json:"account_number"`
 }
 
 // RegisterResponse is what the register endpoint returns to the client.

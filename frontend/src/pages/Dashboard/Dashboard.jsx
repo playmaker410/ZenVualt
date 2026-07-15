@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Dashboard_footer from './Dashboard_footer'
 import BottomNav from './BottomNav'
 
-const Dashboard = ({ theme, accountno, setTheme }) => {
+const Dashboard = ({ theme, setTheme }) => {
     return (
         <div className='flex min-h-screen bg-zen-light-bg dark:bg-zen-bg'>
             <Sidebar theme={theme} />

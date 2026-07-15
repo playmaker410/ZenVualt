@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+
 import {
     Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, ArrowLeft,
     User, Phone, Globe, CreditCard, Check, Zap, Headphones
@@ -61,11 +63,11 @@ const Register = ({ theme }) => {
     const [step, setStep] = useState(1)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
-
     const [showPin, setShowPin] = useState(false)
     const [showConfirmPin, setShowConfirmPin] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
 
     const [form, setForm] = useState({
         firstName: '',
@@ -134,6 +136,7 @@ const Register = ({ theme }) => {
         setStep((s) => Math.max(s - 1, 1))
     }
     const navigate = useNavigate()
+    const { checkAuth } = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -159,6 +162,9 @@ const Register = ({ theme }) => {
             })
 
 
+
+
+
             const data = await res.json()
             if (!res.ok) {
                 setError(data.error || 'Registration failed')
@@ -166,13 +172,21 @@ const Register = ({ theme }) => {
                 return
             }
 
+            const ok = await checkAuth()
+            if (ok) {
+                navigate('/dashboard/overview')
+            } else {
+                setError('Account created but login failed. Please sign in.')
+                navigate('/login')
+            }
 
-            navigate('/dashboard/overview')
         } catch (err) {
             setError('Could not Connect to server ')
             setLoading(false)
         }
     }
+
+
 
     return (
         <div className="min-h-screen xl:grid xl:grid-cols-[2fr_3fr_2fr] px-3">

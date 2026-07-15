@@ -10,6 +10,6 @@ func SendError(w http.ResponseWriter, message string, statuscode int) {
 	w.WriteHeader(statuscode)
 
 	json.NewEncoder(w).Encode(map[string]string{
-		"errr": message,
+		"error": message,
 	})
 }

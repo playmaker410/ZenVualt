@@ -6,6 +6,7 @@ import {
     Settings, LifeBuoy, ShieldCheck
 } from 'lucide-react'
 import assets from '../../assets/assets'
+import { useAuth } from '../../context/AuthContext'
 
 
 const navItems = [
@@ -43,6 +44,13 @@ const navItems = [
 ]
 
 const Sidebar = ({ theme }) => {
+
+    const { user } = useAuth()
+
+    const initials = user
+        ? `${user.first_name?.[0] ?? ''}${user.last_name?.[0] ?? ''}`.toUpperCase()
+        : '--'
+
     const location = useLocation()
 
     const navigate = useNavigate()
@@ -72,11 +80,13 @@ const Sidebar = ({ theme }) => {
             <div className="px-4 py-3 border border-gray-200/40 dark:border-white/10 text-base font-meduim ">
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full bg-zen-primary flex items-center justify-center text-white text-sm font-bold shrink-0">
-                        HS
+                        {initials}
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-zen-light-text dark:text-zen-text leading-none">Hel Smut</p>
-                        {/* <p className="text-[11px] text-zen-light-muted dark:text-zen-muted mt-0.5">ID: 01774742051</p> */}
+                        <p className="text-sm font-bold text-zen-light-text dark:text-zen-text leading-none">{user ? `${user.first_name} ${user.last_name}` : 'Loading...'}</p>
+                        <p className="text-[11px] text-zen-light-muted dark:text-zen-muted mt-0.5">
+                            Acc: {user?.account_number ?? '—'}
+                        </p>
                     </div>
                 </div>
                 <div className="flex items-center justify-center gap-1.5 mt-2">
