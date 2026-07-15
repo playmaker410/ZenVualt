@@ -11,3 +11,18 @@ type User struct {
 	BankPin    string `json:"bank_pin"`
 	Password   string `json:"password"`
 }
+
+// CARRYING INFORMATION FROM REGISTER TO DASHBOARD
+type UserInfo struct {
+	ID        int    `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	AccountNo string `json: "acount_no"`
+}
+
+// RegisterResponse is what the register endpoint returns to the client.
+type RegisterResponse struct {
+	Message string   `json:"message"`
+	User    UserInfo `json:"user"`
+}

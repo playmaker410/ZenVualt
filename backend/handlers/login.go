@@ -3,7 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
+	"time"
+	"zenvault-backend/auth"
 	"zenvault-backend/db"
+	"zenvault-backend/models"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -18,14 +22,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		SendError(w, "Invalid Request", http.StatusBadRequest)
 		return
 	}
-	var StoredPassword string
 
-	err = db.DB.QueryRow("SELECT password FROM users WHERE email = ?", req.Email).Scan(&StoredPassword)
+	var id int
+	var firstname, lastname, email, StoredPassword, AccountNo string
+
+	err = db.DB.QueryRow(`ELECT u.id, u.first_name, u.last_name, u.password, a.AccountNo  
+	FROM users u
+	JOIN accounts  a ON a.user_id = u.id
+	 WHERE email = ?`, req.Email).Scan(&id, &firstname, &lastname, &email, &StoredPassword, &AccountNo)
+
 	if err != nil {
-		http.Error(w, "Invalid Email or Password", http.StatusUnauthorized)
+		SendError(w, "Invalid Email or Password", http.StatusUnauthorized)
 		return
 	}
 
@@ -36,8 +46,32 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Login Successful",
+	token, err := auth.GenarateToken(id)
+	if err != nil {
+		SendError(w, "Error getting token", http.StatusInternalServerError)
+		return
+	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:     "auth_token",
+		Value:    token,
+		HttpOnly: true,
+		Path:     "/",
+		Secure:   false,
+		SameSite: http.SameSiteLaxMode,
+		Expires:  time.Now().Add(24 * time.Hour),
 	})
+	resp := models.RegisterResponse{
+		Message: "Login Succesful",
+		User: models.UserInfo{
+			ID:        id,
+			FirstName: strings.Title(strings.ToLower(firstname)),
+			LastName:  strings.Title(strings.ToLower(lastname)),
+			Email:     email,
+			AccountNo: AccountNo,
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
 }

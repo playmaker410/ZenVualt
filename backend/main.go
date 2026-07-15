@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"zenvault-backend/db"
 	"zenvault-backend/handlers"
+	"zenvault-backend/middleware"
 
 	"github.com/joho/godotenv"
 )
@@ -14,7 +15,8 @@ func CorsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
 		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
@@ -39,6 +41,8 @@ func main() {
 	mux.HandleFunc("/api/register", CorsMiddleware(handlers.Register))
 	mux.HandleFunc("/api/login", CorsMiddleware(handlers.Login))
 	mux.HandleFunc("/api/contactus", CorsMiddleware(handlers.RecieveEmail))
+	mux.HandleFunc("/api/me", CorsMiddleware(middleware.RequireAuth(handlers.Me)))
+	mux.HandleFunc("/api/logout", CorsMiddleware(middleware.RequireAuth(handlers.Logout)))
 
 	fmt.Println("Zenvault backend starting on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", mux))
