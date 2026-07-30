@@ -4,11 +4,13 @@ import { useAuth } from '../context/AuthContext'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, Zap, Headphones, User, Phone } from 'lucide-react'
 import assets from '../assets/assets'
 
+
 const Login = ({ theme }) => {
     const [showPassword, setShowPassword] = useState(false)
     const [form, setForm] = useState({ email: '', password: '', remember: false })
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { checkAuth } = useAuth()
     const [error, setError] = useState('')
 
     const handleSubmit = async (e) => {
@@ -27,17 +29,18 @@ const Login = ({ theme }) => {
 
             })
 
-            const { CheckAuth } = useAuth()
+
 
 
             const data = await res.json()
             if (!res.ok) {
+                console.error(err)
                 setError(data.error || 'Login Failed')
                 setLoading(false)
                 return;
             }
 
-            await CheckAuth()
+            await checkAuth()
             navigate('/dashboard/overview')
         } catch (err) {
             setError('Could not Connect to server ')

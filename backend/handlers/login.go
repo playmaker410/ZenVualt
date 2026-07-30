@@ -29,10 +29,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var id int
 	var firstname, lastname, email, StoredPassword, AccountNo string
 
-	err = db.DB.QueryRow(`ELECT u.id, u.first_name, u.last_name, u.password, a.AccountNo  
+	err = db.DB.QueryRow(`SELECT u.id, u.first_name,  u.last_name, u.password, u.email , a.account_number 
 	FROM users u
 	JOIN accounts  a ON a.user_id = u.id
-	 WHERE email = ?`, req.Email).Scan(&id, &firstname, &lastname, &email, &StoredPassword, &AccountNo)
+	 WHERE email = ?`, req.Email).Scan(&id, &firstname, &lastname, &StoredPassword, &email, &AccountNo)
 
 	if err != nil {
 		SendError(w, "Invalid Email or Password", http.StatusUnauthorized)

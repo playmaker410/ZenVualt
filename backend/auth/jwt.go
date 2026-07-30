@@ -17,7 +17,7 @@ import (
 var (
 	jwtSecret     []byte
 	jwtSecretOnce sync.Once
-) // Turnnning the secret key to byte(computer readable) so it can be used in cryptographic machinery
+) // Turning the secret key to byte(computer readable) so it can be used in cryptographic machinery
 
 func GetSecret() string {
 	secret := os.Getenv("JWT_SECRET") // Get the secret key from the environment
@@ -55,7 +55,7 @@ func GenarateToken(userID int) (string, error) { // fuction that takes in the us
 	//   - your claims struct (UserID, ExpiresAt, IssuedAt)
 	// nothing is encoded or signed yet — just assembled
 
-	return token.SignedString(jwtSecret)
+	return token.SignedString(GetjwtSecret())
 	// this is where the REAL work happens:
 	//  1. converts header -> JSON -> base64url string
 	//  2. converts claims -> JSON -> base64url string

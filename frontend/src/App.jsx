@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes, BrowserRouter, useLocation } from 'react-router-dom'
+
+
 import ProtectedRoute from './components/ProctectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+
+//Public pages 
 import Index from './components/Index';
-import { Route, Routes, BrowserRouter, useLocation } from 'react-router-dom'
 import Buisness from './pages/Buisness';
 import Card from './pages/Card';
 import Contact from './pages/Contact';
@@ -11,6 +15,8 @@ import Loan from './pages/Loan';
 import Login from './pages/Login';
 import Personal from './pages/Personal';
 import Register from './pages/Register';
+
+//Dashboard 
 import Dashboard from './pages/Dashboard/Dashboard';
 import Transactions from './pages/Dashboard/Transactions';
 import Overview from './pages/Dashboard/Overview';
@@ -25,16 +31,33 @@ import Setting from './pages/Dashboard/Setting';
 import Support from './pages/Dashboard/Support';
 
 
+// Admin
+import { Adminlayout } from "./pages/admin/Adminlayout";
+import { AdminOverview } from "./pages/admin/AdminOverview";
+import { PendingRequests } from './pages/admin/AdminPendingReq';
+import { KycVerification } from './pages/admin/KycVerification';
+import { CardRequests } from './pages/admin/CardRequest';
+import { LoanRequests } from './pages/admin/AdLoanRequest';
+import { AllUsers } from './pages/admin/AllUsers';
+import { ManualCreditDebit } from './pages/admin/ManualCredit';
+import { Accounts } from './pages/admin/Account';
+
+
+
 
 const AppLayout = ({ theme, setTheme }) => {
   const location = useLocation();
-  const hideNav = ['/login', '/register'].includes(location.pathname)
-    || location.pathname.startsWith('/dashboard');
+  const hideNav = ['/login', '/register',].includes(location.pathname)
+    || location.pathname.startsWith('/dashboard')
+    || location.pathname.startsWith('/admin');
+
 
   return (
     <div className="min-h-screen bg-zen-light-bg text-black dark:bg-zen-bg dark:text-zen-text transition-colors duration-500">
       {!hideNav && <Navbar theme={theme} setTheme={setTheme} />}
+
       <Routes>
+        {/* Public Route */}
         <Route path="/" element={<Index />} />
         <Route path="/buisness" element={<Buisness />} />
         <Route path="/personal" element={<Personal />} />
@@ -44,14 +67,12 @@ const AppLayout = ({ theme, setTheme }) => {
         <Route path="/login" element={<Login theme={theme} />} />
         <Route path='/register' element={<Register />} />
 
-
-
-
-
+        {/* ProtectedRoute */}
         <Route element={
           <ProtectedRoute />}>
-
+          {/* Dashboard */}
           <Route path='/dashboard/*' element={<Dashboard theme={theme} setTheme={setTheme} />}>
+
             <Route path='overview' element={<Overview />} />
             <Route path='transactions' element={<Transactions theme={theme} setTheme={setTheme} />} />
             <Route path='cards' element={<Cards theme={theme} setTheme={setTheme} />} />
@@ -63,12 +84,28 @@ const AppLayout = ({ theme, setTheme }) => {
             <Route path='loan-history' element={<Loanhistory />} />
             <Route path='settings' element={<Setting />} />
             <Route path='support' element={<Support />} />
+          </Route>
+
+
+        </Route>
+        {/* Admin */}
+        <Route path="/admin/*" element={<Adminlayout theme={theme} setTheme={setTheme} />}>
+          <Route path='dashboard' element={<AdminOverview />} />
+          <Route path='pending-registrations' element={<PendingRequests />} />
+          <Route path='kyc-verification' element={<KycVerification />} />
+          <Route path='card-requests' element={<CardRequests />} />
+          <Route path='loan-requests' element={<LoanRequests />} />
+          <Route path='manual-credit-debit' element={<ManualCreditDebit />} />
+          <Route path='accounts' element={<Accounts />} />
+
+          <Route path='users'>
+            <Route path='all' element={<AllUsers />} />
 
           </Route>
         </Route>
 
       </Routes>
-    </div>
+    </div >
   );
 }
 

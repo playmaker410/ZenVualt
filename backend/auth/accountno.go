@@ -13,7 +13,7 @@ func GenerateAccountNo() (string, error) {
 	// Largest 10-digit number  = ten 9s.
 	// Count your zeros/nines carefully here — this is the #1 place bugs creep in.
 	const minvalue = 1000000000 // 10 digits
-	const maxvalue = 9999999999 // 10 digits
+	const maxvalue = 9999999999 // 10 digitss
 
 	// STEP 2: Figure out how many possible numbers exist in that range.
 	// +1 because the range is inclusive on both ends

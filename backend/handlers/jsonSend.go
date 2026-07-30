@@ -6,7 +6,7 @@ import (
 )
 
 func SendError(w http.ResponseWriter, message string, statuscode int) {
-	w.Header().Set("Content-Type", "json/application")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statuscode)
 
 	json.NewEncoder(w).Encode(map[string]string{

@@ -19,11 +19,11 @@ func Me(w http.ResponseWriter, r *http.Request) {
 
 	var firstname, lastname, email, AccountNo string
 
-	err := db.DB.QueryRow(`SELECT u.first_name, u.last_name , a.account_number
+	err := db.DB.QueryRow(`SELECT u.first_name, u.last_name , u.email, a.account_number
 
 	 FROM  users u 
 	 JOIN accounts a ON a.user_id = u.id
-	 WHERE u.id = ? `, userID).Scan(&firstname, &lastname, &AccountNo)
+	 WHERE u.id = ? `, userID).Scan(&firstname, &lastname, &email, &AccountNo)
 
 	if err != nil {
 		SendError(w, "User not found", http.StatusNotFound)
