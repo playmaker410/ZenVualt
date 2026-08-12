@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Await, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, ArrowRight, Zap, Headphones, User, Phone } from 'lucide-react'
 import assets from '../assets/assets'
@@ -10,41 +10,31 @@ const Login = ({ theme }) => {
     const [form, setForm] = useState({ email: '', password: '', remember: false })
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const { checkAuth } = useAuth()
+    const { login } = useAuth()
     const [error, setError] = useState('')
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setLoading(true)
-        setError('')
+    const location = useLocation()
+
+
+    const redirectTo = location.state?.from?.pathname || '/dashboard/overview'
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setError("");
+
+        if (!form.email.trim() || !form.password.trim()) {
+            setError("Please enter both email and password.");
+            return;
+        }
+
+        setLoading(true);
         try {
-            const res = await fetch('http://localhost:8080/api/login', {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: form.email,
-                    password: form.password
-                }),
-
-            })
-
-
-
-
-            const data = await res.json()
-            if (!res.ok) {
-                console.error(err)
-                setError(data.error || 'Login Failed')
-                setLoading(false)
-                return;
-            }
-
-            await checkAuth()
-            navigate('/dashboard/overview')
+            await login(form.email.trim(), form.password);
+            navigate(redirectTo, { replace: true });
         } catch (err) {
-            setError('Could not Connect to server ')
-            setLoading(false)
+            setError(err.message || "Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -175,6 +165,12 @@ const Login = ({ theme }) => {
                         </div>
 
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+
+                            {error && (
+                                <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 px-4 py-3 text-sm text-red-600 dark:text-red-400">
+                                    <span>{error}</span>
+                                </div>
+                            )}
 
                             {/* Email */}
                             <div>

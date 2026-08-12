@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import { AdminSidebar } from './AdminSidebar'
-import { AdminTopbar } from './AdminTopbar'
-import { MobileButnav } from './MobileButnav'
-import { BottomNav } from './BottomNav'
+import { AdminSidebar } from '../AdminSidebar'
+import { AdminTopbar } from '../AdminTopbar'
+import { MobileButnav } from '../MobileButnav'
+import { BottomNav } from '../BottomNav'
 
 export const Adminlayout = ({ theme, setTheme }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)

@@ -9,8 +9,10 @@ import {
     LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer,
 } from 'recharts'
+import { useAdminAuth } from './admincontext/AdminAuthContext'
 
 export const AdminOverview = () => {
+    const { admin } = useAdminAuth()
 
     const today = new Date().toLocaleDateString('en-US', {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
@@ -97,7 +99,13 @@ export const AdminOverview = () => {
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h1 className="text-2xl font-semibold text-zen-light-text dark:text-zen-text flex items-center gap-2">
-                        Good Morning, Admin <span aria-hidden>👋</span>
+                        {new Date().getHours() < 12
+                            ? "Good Morning"
+                            : new Date().getHours() < 18
+                                ? "Good Afternoon"
+                                : "Good Evening"
+                        }, {admin?.first_name}
+                        <span aria-hidden>👋</span>
                     </h1>
                     <p className="text-sm text-zen-light-muted dark:text-zen-muted mt-1">
                         Here's what's happening in Zenvault Bank today.

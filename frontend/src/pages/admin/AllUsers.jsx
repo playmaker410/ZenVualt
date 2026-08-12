@@ -35,6 +35,9 @@
  *     back to the Pending Registrations approval flow instead of
  *     duplicating Approve/Reject here — this page manages EXISTING
  *     accounts, approvals happen in the dedicated queue.
+ *   - `accountType` (Individual/Business) was dropped — not part of
+ *     ZenVault's data model right now. If you add business accounts
+ *     later, it's easy to slot back into the table + snapshot grid.
  * ---------------------------------------------------------------------------
  */
 
@@ -143,7 +146,6 @@ const filterTabs = [
  *
  * SHAPE:
  *   id, name, email, phone, avatar         – same as the other pages
- *   accountType     "Individual" | "Business"
  *   accountNumber   masked string
  *   balance         formatted string, e.g. "$4,280.12"
  *   kycStatus       "verified" | "pending" | "unverified"
@@ -160,7 +162,6 @@ const initialUsers = [
         email: "john.doe@email.com",
         phone: "+1 234 567 8900",
         avatar: "https://i.pravatar.cc/120?img=12",
-        accountType: "Individual",
         accountNumber: "**** 4471",
         balance: "$4,280.12",
         kycStatus: "verified",
@@ -176,7 +177,6 @@ const initialUsers = [
         email: "grace.obi@email.com",
         phone: "+1 234 567 8977",
         avatar: "https://i.pravatar.cc/120?img=48",
-        accountType: "Individual",
         accountNumber: "**** 8820",
         balance: "$120.40",
         kycStatus: "verified",
@@ -192,7 +192,6 @@ const initialUsers = [
         email: "sarah.j@email.com",
         phone: "+1 234 567 8903",
         avatar: "https://i.pravatar.cc/120?img=47",
-        accountType: "Individual",
         accountNumber: "**** 1190",
         balance: "$0.00",
         kycStatus: "pending",
@@ -208,7 +207,6 @@ const initialUsers = [
         email: "michael.b@email.com",
         phone: "+1 234 567 8902",
         avatar: "https://i.pravatar.cc/120?img=51",
-        accountType: "Business",
         accountNumber: "**** 5678",
         balance: "$0.00",
         kycStatus: "verified",
@@ -348,11 +346,11 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
             {/* --- Table --- */}
             <div className="overflow-hidden rounded-2xl border border-zen-light-border bg-zen-light-card shadow-sm dark:border-zen-border dark:bg-zen-card">
                 <div className="overflow-x-auto">
-                    <table className="w-full min-w-[860px] text-left text-sm">
+                    <table className="w-full min-w-[780px] text-left text-sm">
                         <thead>
                             <tr className="border-b border-zen-light-border text-xs uppercase tracking-wide text-zen-light-muted dark:border-zen-border dark:text-zen-muted">
                                 <th className="px-5 py-3 font-medium">User</th>
-                                <th className="px-5 py-3 font-medium">Account</th>
+                                <th className="px-5 py-3 font-medium">Account no.</th>
                                 <th className="px-5 py-3 font-medium">Balance</th>
                                 <th className="px-5 py-3 font-medium">KYC</th>
                                 <th className="px-5 py-3 font-medium">Joined</th>
@@ -385,7 +383,7 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4 text-zen-light-text dark:text-zen-text">
-                                        {u.accountType} &middot; {u.accountNumber}
+                                        {u.accountNumber}
                                     </td>
                                     <td className="px-5 py-4 text-zen-light-text dark:text-zen-text">
                                         {u.balance}
@@ -563,36 +561,35 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                     )}
                 </div>
 
-                {/* ================= COLUMN 2: Account snapshot ================= */}
+                {/* ================= COLUMN 2: Account snapshot =================
+            3 items now that accountType is gone: Balance, Account number,
+            KYC status — laid out as a single row of 3 so nothing looks
+            like a lopsided leftover from a 2x2 grid. */}
                 <div className="rounded-2xl border border-zen-light-border bg-zen-light-card p-5 shadow-sm dark:border-zen-border dark:bg-zen-card lg:col-span-1">
                     <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-zen-light-muted dark:text-zen-muted">
                         <Wallet size={13} />
                         Account snapshot
                     </p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-3">
                         <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
                             <p className="text-xs text-zen-light-muted dark:text-zen-muted">Balance</p>
                             <p className="text-lg font-semibold text-zen-light-text dark:text-zen-text">
                                 {user.balance}
                             </p>
                         </div>
-                        <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
-                            <p className="text-xs text-zen-light-muted dark:text-zen-muted">Account type</p>
-                            <p className="text-lg font-semibold text-zen-light-text dark:text-zen-text">
-                                {user.accountType}
-                            </p>
-                        </div>
-                        <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
-                            <p className="text-xs text-zen-light-muted dark:text-zen-muted">Account number</p>
-                            <p className="text-lg font-semibold text-zen-light-text dark:text-zen-text">
-                                {user.accountNumber}
-                            </p>
-                        </div>
-                        <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
-                            <p className="text-xs text-zen-light-muted dark:text-zen-muted">KYC status</p>
-                            <p className="text-lg font-semibold text-zen-light-text dark:text-zen-text">
-                                {kycStatusMeta[user.kycStatus].label}
-                            </p>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
+                                <p className="text-xs text-zen-light-muted dark:text-zen-muted">Account number</p>
+                                <p className="text-base font-semibold text-zen-light-text dark:text-zen-text">
+                                    {user.accountNumber}
+                                </p>
+                            </div>
+                            <div className="rounded-xl bg-zen-light-bg p-3 dark:bg-zen-bg">
+                                <p className="text-xs text-zen-light-muted dark:text-zen-muted">KYC status</p>
+                                <p className="text-base font-semibold text-zen-light-text dark:text-zen-text">
+                                    {kycStatusMeta[user.kycStatus].label}
+                                </p>
+                            </div>
                         </div>
                     </div>
                     {/*

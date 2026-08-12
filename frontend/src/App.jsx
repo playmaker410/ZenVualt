@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, BrowserRouter, useLocation } from 'react-router-dom'
+import { Route, Routes, BrowserRouter, useLocation, Outlet, Navigate } from 'react-router-dom'
 
 
-import ProtectedRoute from './components/ProctectedRoute';
+import ProtectedRoute from './pages/Dashboard/routes/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 
@@ -32,17 +32,34 @@ import Support from './pages/Dashboard/Support';
 
 
 // Admin
-import { Adminlayout } from "./pages/admin/Adminlayout";
+import { Adminlayout } from "./pages/admin/layout/Adminlayout";
 import { AdminOverview } from "./pages/admin/AdminOverview";
-import { PendingRequests } from './pages/admin/AdminPendingReq';
+// import { PendingRequests } from './pages/admin/AdminPendingReq';
 import { KycVerification } from './pages/admin/KycVerification';
 import { CardRequests } from './pages/admin/CardRequest';
 import { LoanRequests } from './pages/admin/AdLoanRequest';
 import { AllUsers } from './pages/admin/AllUsers';
 import { ManualCreditDebit } from './pages/admin/ManualCredit';
 import { Accounts } from './pages/admin/Account';
+import { AdminTransactions } from './pages/admin/AdminTransaction';
+import { NotificationCenter } from './pages/admin/AdminNotification';
+import { AdminLogin } from './pages/admin/AdminLogin';
+import { AdminProtectedRoute } from './pages/admin/routes/AdminProtectedRoute';
+import { AdminAuthProvider } from './pages/admin/admincontext/AdminAuthContext';
 
 
+// Auth scoping layouts — pair each provider with its own route subtree
+const UserAuthLayout = () => (
+  <AuthProvider>
+    <Outlet />
+  </AuthProvider>
+);
+
+const AdminAuthLayout = () => (
+  <AdminAuthProvider>
+    <Outlet />
+  </AdminAuthProvider>
+);
 
 
 const AppLayout = ({ theme, setTheme }) => {
@@ -57,50 +74,61 @@ const AppLayout = ({ theme, setTheme }) => {
       {!hideNav && <Navbar theme={theme} setTheme={setTheme} />}
 
       <Routes>
-        {/* Public Route */}
-        <Route path="/" element={<Index />} />
-        <Route path="/buisness" element={<Buisness />} />
-        <Route path="/personal" element={<Personal />} />
-        <Route path="/card" element={<Card />} />
-        <Route path="/loan" element={<Loan />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login theme={theme} />} />
-        <Route path='/register' element={<Register />} />
+        {/* Everything that needs the USER auth context */}
+        <Route element={<UserAuthLayout />}>
+          {/* Public Route */}
+          <Route path="/" element={<Index />} />
+          <Route path="/buisness" element={<Buisness />} />
+          <Route path="/personal" element={<Personal />} />
+          <Route path="/card" element={<Card />} />
+          <Route path="/loan" element={<Loan />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login theme={theme} />} />
+          <Route path='/register' element={<Register />} />
 
-        {/* ProtectedRoute */}
-        <Route element={
-          <ProtectedRoute />}>
-          {/* Dashboard */}
-          <Route path='/dashboard/*' element={<Dashboard theme={theme} setTheme={setTheme} />}>
+          {/* ProtectedRoute */}
+          <Route element={<ProtectedRoute />}>
+            {/* Dashboard */}
+            <Route path='/dashboard/*' element={<Dashboard theme={theme} setTheme={setTheme} />}>
 
-            <Route path='overview' element={<Overview />} />
-            <Route path='transactions' element={<Transactions theme={theme} setTheme={setTheme} />} />
-            <Route path='cards' element={<Cards theme={theme} setTheme={setTheme} />} />
-            <Route path='local-transfer' element={<LocalTransfer theme={theme} setTheme={setTheme} />} />
-            <Route path='international' element={<InternationalWire theme={theme} setTheme={setTheme} />} />
-            <Route path='deposit' element={<Deposit theme={theme} setTheme={setTheme} />} />
-            <Route path='loan-request' element={<LoanReq theme={theme} setTheme={setTheme} />} />
-            <Route path='tax-refund' element={<Irs theme={theme} setTheme={setTheme} />} />
-            <Route path='loan-history' element={<Loanhistory />} />
-            <Route path='settings' element={<Setting />} />
-            <Route path='support' element={<Support />} />
+              <Route path='overview' element={<Overview />} />
+              <Route path='transactions' element={<Transactions theme={theme} setTheme={setTheme} />} />
+              <Route path='cards' element={<Cards theme={theme} setTheme={setTheme} />} />
+              <Route path='local-transfer' element={<LocalTransfer theme={theme} setTheme={setTheme} />} />
+              <Route path='international' element={<InternationalWire theme={theme} setTheme={setTheme} />} />
+              <Route path='deposit' element={<Deposit theme={theme} setTheme={setTheme} />} />
+              <Route path='loan-request' element={<LoanReq theme={theme} setTheme={setTheme} />} />
+              <Route path='tax-refund' element={<Irs theme={theme} setTheme={setTheme} />} />
+              <Route path='loan-history' element={<Loanhistory />} />
+              <Route path='settings' element={<Setting />} />
+              <Route path='support' element={<Support />} />
+            </Route>
           </Route>
-
-
         </Route>
-        {/* Admin */}
-        <Route path="/admin/*" element={<Adminlayout theme={theme} setTheme={setTheme} />}>
-          <Route path='dashboard' element={<AdminOverview />} />
-          <Route path='pending-registrations' element={<PendingRequests />} />
-          <Route path='kyc-verification' element={<KycVerification />} />
-          <Route path='card-requests' element={<CardRequests />} />
-          <Route path='loan-requests' element={<LoanRequests />} />
-          <Route path='manual-credit-debit' element={<ManualCreditDebit />} />
-          <Route path='accounts' element={<Accounts />} />
 
-          <Route path='users'>
-            <Route path='all' element={<AllUsers />} />
 
+        {/* Everything that needs the ADMIN auth context */}
+        <Route element={<AdminAuthLayout />}>
+          <Route path="/admin/login" element={<AdminLogin theme={theme} />} />
+
+          <Route element={<AdminProtectedRoute />}>
+            <Route path="/admin/*" element={<Adminlayout theme={theme} setTheme={setTheme} />}>
+              <Route index element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path='dashboard' element={<AdminOverview />} />
+              {/* <Route path='pending-registrations' element={<PendingRequests />} /> */}
+              <Route path='kyc-verification' element={<KycVerification />} />
+              <Route path='card-requests' element={<CardRequests />} />
+              <Route path='loan-requests' element={<LoanRequests />} />
+              <Route path='manual-credit-debit' element={<ManualCreditDebit />} />
+              <Route path='accounts' element={<Accounts />} />
+              <Route path='transactions' element={<AdminTransactions />} />
+              <Route path='notifications' element={<NotificationCenter />} />
+
+              <Route path='users'>
+                <Route path='all' element={<AllUsers />} />
+
+              </Route>
+            </Route>
           </Route>
         </Route>
 
@@ -128,12 +156,9 @@ const App = () => {
   return (
 
     <BrowserRouter>
-      <AuthProvider>
-        <AppLayout theme={theme} setTheme={setTheme} />
-      </AuthProvider>
+      <AppLayout theme={theme} setTheme={setTheme} />
     </BrowserRouter>
 
   );
 }
 export default App;
-

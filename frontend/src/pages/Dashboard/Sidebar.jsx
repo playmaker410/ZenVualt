@@ -45,7 +45,7 @@ const navItems = [
 
 const Sidebar = ({ theme }) => {
 
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
 
     const initials = user
         ? `${user.first_name?.[0] ?? ''}${user.last_name?.[0] ?? ''}`.toUpperCase()
@@ -54,13 +54,15 @@ const Sidebar = ({ theme }) => {
     const location = useLocation()
 
     const navigate = useNavigate()
+
+
     const handleLogout = async () => {
-        await fetch('http://localhost:8080/api/logout', {
-            method: 'POST',
-            credentials: 'include'
-        })
+        await logout
         navigate('/login')
+
     }
+
+
 
     return (
         <div className='w-70 h-screen sticky top-0 hidden  xl:flex xl:flex-col bg-zen-light-bg dark:bg-zen-bg border-r border-gray-200/40 dark:border-white/10 shadow-[4px_0_20px_rgba(0,0,0,0.08)] dark:shadow-[4px_0_20px_rgba(0,0,0,0.4)] transition-all duration-300 '>

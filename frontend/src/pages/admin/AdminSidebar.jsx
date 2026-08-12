@@ -24,7 +24,7 @@ export const AdminSidebar = ({ theme }) => {
         {
             group: 'APPROVALS',
             items: [
-                { icon: UserPlus, label: 'Pending Registrations', path: '/admin/pending-registrations', badge: 32 },
+                // { icon: UserPlus, label: 'Pending Registrations', path: '/admin/pending-registrations', badge: 32 },
                 { icon: ShieldCheck, label: 'KYC Verification', path: '/admin/kyc-verification', badge: 17 },
                 { icon: CreditCard, label: 'Card Requests', path: '/admin/card-requests', badge: 9 },
                 { icon: FileText, label: 'Loan Requests', path: '/admin/loan-requests', badge: 14 },

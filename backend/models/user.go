@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type User struct {
 	ID         int    `json:"id"`
 	FirstName  string `json:"first_name"`
@@ -25,4 +27,28 @@ type UserInfo struct {
 type RegisterResponse struct {
 	Message string   `json:"message"`
 	User    UserInfo `json:"user"`
+}
+
+type Admin struct {
+	ID        int
+	FirstName string
+	LastName  string
+	Email     string
+	Password  string
+	Role      string
+	IsActive  bool
+	LastLogin time.Time
+}
+
+type AdminInfo struct {
+	ID        int    `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Role      string `json:"role"`
+}
+
+type AdminLoginResponse struct {
+	Message string    `json:"message"`
+	Admin   AdminInfo `json:"admin"`
 }

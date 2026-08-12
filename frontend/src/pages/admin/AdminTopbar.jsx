@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Search, Moon, Sun, Bell, ChevronDown, Menu, User, Settings, LogOut } from 'lucide-react'
-
+import { useNavigate } from 'react-router-dom'
+import { useAdminAuth } from "./admincontext/AdminAuthContext";
 export const AdminTopbar = ({
     theme,
     toggleTheme,
@@ -10,6 +11,14 @@ export const AdminTopbar = ({
 }) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const [showNotif, setShowNotif] = useState(false)
+    const navigate = useNavigate()
+    const { admin_logout } = useAdminAuth()
+
+    const handleLogout = async () => {
+        await admin_logout
+        navigate('/admin/login')
+
+    }
 
     return (
         <div className="sticky top-0 z-20 flex items-center justify-between gap-3 md:gap-4 px-4 md:px-6 py-3 bg-zen-light-bg dark:bg-zen-bg border-b border-gray-200/40 dark:border-white/10">
@@ -120,7 +129,7 @@ export const AdminTopbar = ({
                                     Settings
                                 </button>
                                 <div className="my-1 h-px bg-gray-200/60 dark:bg-white/10" />
-                                <button className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10">
+                                <button onClick={handleLogout} className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10">
                                     <LogOut className="w-4 h-4" />
                                     Logout
                                 </button>

@@ -37,7 +37,7 @@
  *   ...plus the light-mode equivalents:
  *     --color-zen-light-bg, --color-zen-light-card, --color-zen-light-border,
  *     --color-zen-light-text, --color-zen-light-muted
- *   Pattern used everywhere: `text-zen-light-text dark:text-zen-text`
+ *   Pattern used everywheHomere: `text-zen-light-text dark:text-zen-text`
  *   (light value first, dark value after `dark:`).
  *
  *   IMPORTANT: your @theme does NOT define a success/danger/warning color,

@@ -43,6 +43,9 @@ func main() {
 	mux.HandleFunc("/api/contactus", CorsMiddleware(handlers.RecieveEmail))
 	mux.HandleFunc("/api/me", CorsMiddleware(middleware.RequireAuth(handlers.Me)))
 	mux.HandleFunc("/api/logout", CorsMiddleware(middleware.RequireAuth(handlers.Logout)))
+	mux.HandleFunc("/api/adminlogin", CorsMiddleware(handlers.AdminLogin))
+	mux.HandleFunc("/api/adminlogout", CorsMiddleware(middleware.RequireAdminAuth(handlers.AdminLogout)))
+	mux.HandleFunc("/api/admin_me", CorsMiddleware(middleware.RequireAdminAuth(handlers.AdminMe)))
 
 	fmt.Println("Zenvault backend starting on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", mux))
