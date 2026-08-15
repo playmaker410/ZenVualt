@@ -41,7 +41,7 @@
  * ---------------------------------------------------------------------------
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Search,
     ChevronLeft,
@@ -63,6 +63,7 @@ import {
     AlertTriangle,
 } from "lucide-react";
 
+
 /* ========================================================================
  * 1. STATS CARDS DATA
  * ------------------------------------------------------------------------
@@ -74,7 +75,7 @@ import {
 const stats = [
     {
         label: "Total users",
-        value: 1284,
+        value: 0,
         sub: "All accounts",
         icon: Users,
         iconBg: "bg-purple-100 dark:bg-purple-900/30",
@@ -82,7 +83,7 @@ const stats = [
     },
     {
         label: "Active",
-        value: 1189,
+        value: 0,
         sub: "In good standing",
         icon: UserCheck,
         iconBg: "bg-green-100 dark:bg-green-900/30",
@@ -91,7 +92,7 @@ const stats = [
     },
     {
         label: "Suspended",
-        value: 14,
+        value: 0,
         sub: "Access restricted",
         icon: UserMinus,
         iconBg: "bg-red-100 dark:bg-red-900/30",
@@ -100,7 +101,7 @@ const stats = [
     },
     {
         label: "Pending",
-        value: 32,
+        value: 0,
         sub: "Awaiting approval",
         icon: Clock,
         iconBg: "bg-amber-100 dark:bg-amber-900/30",
@@ -109,7 +110,7 @@ const stats = [
     },
     {
         label: "Closed",
-        value: 49,
+        value: 0,
         sub: "No longer active",
         icon: UserX,
         iconBg: "bg-blue-100 dark:bg-blue-900/30",
@@ -161,60 +162,49 @@ const initialUsers = [
         name: "John Doe",
         email: "john.doe@email.com",
         phone: "+1 234 567 8900",
-        avatar: "https://i.pravatar.cc/120?img=12",
         accountNumber: "**** 4471",
-        balance: "$4,280.12",
+        balance: "$0.00",
         kycStatus: "verified",
         status: "active",
-        address: "12 Maple Street, Newark, NJ",
-        joined: "14 Feb 2025",
-        lastLogin: "29 Jul 2026, 08:12 PM",
-        suspendReason: null,
+        createdat: "02 Nov 2024",
+
     },
     {
         id: "USR-10198",
         name: "Grace Obi",
         email: "grace.obi@email.com",
         phone: "+1 234 567 8977",
-        avatar: "https://i.pravatar.cc/120?img=48",
         accountNumber: "**** 8820",
-        balance: "$120.40",
+        balance: "$0.00",
         kycStatus: "verified",
         status: "suspended",
-        address: "9 Independence Layout, Enugu, Nigeria",
-        joined: "02 Nov 2024",
-        lastLogin: "18 Jul 2026, 03:40 PM",
-        suspendReason: "Multiple failed login attempts flagged as suspicious activity.",
+        createdat: "02 Nov 2024",
+
     },
     {
         id: "USR-10305",
         name: "Sarah Johnson",
         email: "sarah.j@email.com",
         phone: "+1 234 567 8903",
-        avatar: "https://i.pravatar.cc/120?img=47",
         accountNumber: "**** 1190",
         balance: "$0.00",
         kycStatus: "pending",
         status: "pending",
-        address: "77 Riverside Drive, Austin, TX",
-        joined: "29 Jul 2026",
-        lastLogin: "Never",
-        suspendReason: null,
+        createdat: "29 Jul 2026",
+
     },
     {
         id: "USR-09876",
         name: "Michael Brown",
         email: "michael.b@email.com",
         phone: "+1 234 567 8902",
-        avatar: "https://i.pravatar.cc/120?img=51",
         accountNumber: "**** 5678",
         balance: "$0.00",
         kycStatus: "verified",
         status: "closed",
         address: "48 Independence Ave, Trenton, NJ",
-        joined: "20 May 2023",
-        lastLogin: "01 Jun 2026, 10:05 AM",
-        suspendReason: null,
+        createdat: "20 May 2023",
+
     },
 ];
 
@@ -353,7 +343,7 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
                                 <th className="px-5 py-3 font-medium">Account no.</th>
                                 <th className="px-5 py-3 font-medium">Balance</th>
                                 <th className="px-5 py-3 font-medium">KYC</th>
-                                <th className="px-5 py-3 font-medium">Joined</th>
+                                <th className="px-5 py-3 font-medium">Created At.</th>
                                 <th className="px-5 py-3 font-medium">Status</th>
                                 <th className="px-5 py-3 font-medium">Action</th>
                             </tr>
@@ -367,11 +357,7 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
                                 >
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-3">
-                                            <img
-                                                src={u.avatar}
-                                                alt={u.name}
-                                                className="h-9 w-9 rounded-full object-cover"
-                                            />
+
                                             <div>
                                                 <p className="font-medium text-zen-light-text dark:text-zen-text">
                                                     {u.name}
@@ -392,7 +378,7 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
                                         <KycBadge status={u.kycStatus} />
                                     </td>
                                     <td className="px-5 py-4 text-zen-light-muted dark:text-zen-muted">
-                                        {u.joined}
+                                        {u.createdat}
                                     </td>
                                     <td className="px-5 py-4">
                                         <StatusBadge status={u.status} />
@@ -429,6 +415,36 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
     );
 }
 
+
+function ConfirmModal({ title, message, confirmLabel, confirmColor, onConfirm, onCancel }) {
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="w-full max-w-sm rounded-2xl bg-zen-light-card p-5 shadow-xl dark:bg-zen-card">
+                <h3 className="text-base font-semibold text-zen-light-text dark:text-zen-text">
+                    {title}
+                </h3>
+                <p className="mt-2 text-sm text-zen-light-muted dark:text-zen-muted">
+                    {message}
+                </p>
+                <div className="mt-5 flex justify-end gap-2">
+                    <button
+                        onClick={onCancel}
+                        className="rounded-lg border border-zen-light-border px-4 py-2 text-sm font-medium text-zen-light-text hover:bg-zen-light-bg dark:border-zen-border dark:text-zen-text dark:hover:bg-zen-bg/60"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={onConfirm}
+                        className={`rounded-lg px-4 py-2 text-sm font-medium text-white ${confirmColor}`}
+                    >
+                        {confirmLabel}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 /* ========================================================================
  * 6. DETAIL VIEW
  * ------------------------------------------------------------------------
@@ -442,9 +458,7 @@ function UsersList({ users, activeFilter, onFilterChange, onSelect }) {
  * ==================================================================== */
 function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessage }) {
     const [message, setMessage] = useState("");
-    const [suspendReason, setSuspendReason] = useState("");
-    const [showSuspendReason, setShowSuspendReason] = useState(false);
-    const [closeConfirmText, setCloseConfirmText] = useState("");
+    const [confirmAction, setConfirmAction] = useState(null); // "suspend" | "close" | null
 
     const isClosed = user.status === "closed";
     const isSuspended = user.status === "suspended";
@@ -456,12 +470,10 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
         setMessage("");
     }
 
-    function handleSuspend() {
-        if (!suspendReason.trim()) return;
-        onToggleSuspend(user.id, true, suspendReason.trim());
-        onSendMessage(user.id, `Your account has been suspended: ${suspendReason.trim()}`);
-        setSuspendReason("");
-        setShowSuspendReason(false);
+    function confirmSuspend() {
+        onToggleSuspend(user.id, true, null);
+        onSendMessage(user.id, "Your account has been suspended.");
+        setConfirmAction(null);
     }
 
     function handleReactivate() {
@@ -469,16 +481,14 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
         onSendMessage(user.id, "Your account has been reactivated. You now have full access again.");
     }
 
-    function handleCloseAccount() {
-        if (closeConfirmText.trim().toUpperCase() !== "CONFIRM") return;
+    function confirmClose() {
         onCloseAccount(user.id);
         onSendMessage(user.id, "Your account has been closed per your request or our review.");
-        setCloseConfirmText("");
+        setConfirmAction(null);
     }
 
     return (
         <div>
-
             {/* --- Header --- */}
             <div className="mb-6 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -501,15 +511,10 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
             </div>
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-
-                {/* ================= COLUMN 1: Contact + account info ================= */}
+                {/* ================= COLUMN 1 ================= */}
                 <div className="flex flex-col gap-5 rounded-2xl border border-zen-light-border bg-zen-light-card p-5 shadow-sm dark:border-zen-border dark:bg-zen-card lg:col-span-1">
                     <div className="flex items-center gap-3">
-                        <img
-                            src={user.avatar}
-                            alt={user.name}
-                            className="h-14 w-14 rounded-full object-cover"
-                        />
+
                         <div>
                             <p className="font-medium text-zen-light-text dark:text-zen-text">{user.name}</p>
                             <KycBadge status={user.kycStatus} />
@@ -526,29 +531,15 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                                 <Phone size={14} className="text-zen-light-muted dark:text-zen-muted" />
                                 <dd className="text-zen-light-text dark:text-zen-text">{user.phone}</dd>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <MapPin size={14} className="text-zen-light-muted dark:text-zen-muted" />
-                                <dd className="text-zen-light-text dark:text-zen-text">{user.address}</dd>
-                            </div>
+                            {/*  */}
                             <div className="flex items-center gap-2">
                                 <Calendar size={14} className="text-zen-light-muted dark:text-zen-muted" />
                                 <dd className="text-zen-light-text dark:text-zen-text">
-                                    Joined {user.joined} &middot; last login {user.lastLogin}
+                                    Created At: {user.createdat}
                                 </dd>
                             </div>
                         </dl>
                     </div>
-
-                    {isSuspended && user.suspendReason && (
-                        <div className="rounded-xl bg-red-50 p-3 dark:bg-red-900/20">
-                            <p className="text-xs font-medium text-red-700 dark:text-red-400">
-                                Suspension reason
-                            </p>
-                            <p className="mt-1 text-sm text-red-700 dark:text-red-400">
-                                {user.suspendReason}
-                            </p>
-                        </div>
-                    )}
 
                     {isPending && (
                         <div className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 dark:bg-amber-900/20">
@@ -561,10 +552,7 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                     )}
                 </div>
 
-                {/* ================= COLUMN 2: Account snapshot =================
-            3 items now that accountType is gone: Balance, Account number,
-            KYC status — laid out as a single row of 3 so nothing looks
-            like a lopsided leftover from a 2x2 grid. */}
+                {/* ================= COLUMN 2 ================= */}
                 <div className="rounded-2xl border border-zen-light-border bg-zen-light-card p-5 shadow-sm dark:border-zen-border dark:bg-zen-card lg:col-span-1">
                     <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-zen-light-muted dark:text-zen-muted">
                         <Wallet size={13} />
@@ -592,15 +580,9 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                             </div>
                         </div>
                     </div>
-                    {/*
-            NOTE: like CardRequests.jsx's account-standing panel, this is
-            placeholder data pulled straight off the user object. Once you
-            have real transaction/account endpoints, this is a good spot
-            to add a mini recent-transactions list too.
-          */}
                 </div>
 
-                {/* ================= COLUMN 3: Message + account actions ================= */}
+                {/* ================= COLUMN 3 ================= */}
                 <div className="flex flex-col gap-5 lg:col-span-1">
                     <div className="rounded-2xl border border-zen-light-border bg-zen-light-card p-5 shadow-sm dark:border-zen-border dark:bg-zen-card">
                         <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-zen-light-muted dark:text-zen-muted">
@@ -624,8 +606,6 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                         </button>
                     </div>
 
-                    {/* Account actions — hidden entirely for closed accounts, since
-              there's nothing left to do to them */}
                     {!isClosed && (
                         <div className="rounded-2xl border border-zen-light-border bg-zen-light-card p-5 shadow-sm dark:border-zen-border dark:bg-zen-card">
                             <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-zen-light-muted dark:text-zen-muted">
@@ -633,7 +613,6 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                                 Account actions
                             </p>
 
-                            {/* Suspend / Reactivate toggle */}
                             {isSuspended ? (
                                 <button
                                     onClick={handleReactivate}
@@ -642,55 +621,23 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                                     <UserCheck size={16} />
                                     Reactivate account
                                 </button>
-                            ) : !showSuspendReason ? (
+                            ) : (
                                 <button
-                                    onClick={() => setShowSuspendReason(true)}
+                                    onClick={() => setConfirmAction("suspend")}
                                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500 py-2.5 text-sm font-medium text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20"
                                 >
                                     <UserMinus size={16} />
                                     Suspend account
                                 </button>
-                            ) : (
-                                <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-900/40 dark:bg-amber-900/10">
-                                    <label className="mb-1.5 block text-xs font-medium text-amber-700 dark:text-amber-400">
-                                        Reason for suspension (required, sent to user)
-                                    </label>
-                                    <textarea
-                                        value={suspendReason}
-                                        onChange={(e) => setSuspendReason(e.target.value)}
-                                        rows={2}
-                                        className="w-full resize-none rounded-lg border border-amber-200 bg-white p-2 text-sm text-zen-light-text outline-none focus:border-amber-400 dark:border-amber-900/40 dark:bg-zen-bg dark:text-zen-text"
-                                    />
-                                    <button
-                                        onClick={handleSuspend}
-                                        disabled={!suspendReason.trim()}
-                                        className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-amber-600 py-2 text-sm font-medium text-white hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-40"
-                                    >
-                                        Confirm suspension
-                                    </button>
-                                </div>
                             )}
 
-                            {/* Close account — most destructive, requires typing CONFIRM */}
                             <div className="mt-3 border-t border-zen-light-border pt-3 dark:border-zen-border">
-                                <p className="mb-1.5 text-xs text-zen-light-muted dark:text-zen-muted">
-                                    Type <span className="font-mono font-medium">CONFIRM</span> to permanently close this account
-                                </p>
-                                <div className="flex gap-2">
-                                    <input
-                                        value={closeConfirmText}
-                                        onChange={(e) => setCloseConfirmText(e.target.value)}
-                                        placeholder="CONFIRM"
-                                        className="flex-1 rounded-lg border border-zen-light-border bg-zen-light-bg px-3 py-2 text-sm text-zen-light-text outline-none focus:border-red-400 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text"
-                                    />
-                                    <button
-                                        onClick={handleCloseAccount}
-                                        disabled={closeConfirmText.trim().toUpperCase() !== "CONFIRM"}
-                                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-40"
-                                    >
-                                        Close
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={() => setConfirmAction("close")}
+                                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 py-2.5 text-sm font-medium text-white hover:bg-red-700"
+                                >
+                                    Close account
+                                </button>
                             </div>
                         </div>
                     )}
@@ -702,6 +649,28 @@ function UserDetail({ user, onBack, onToggleSuspend, onCloseAccount, onSendMessa
                     )}
                 </div>
             </div>
+
+            {/* --- Confirm modals --- */}
+            {confirmAction === "suspend" && (
+                <ConfirmModal
+                    title="Suspend this account?"
+                    message={`${user.name} will lose access until you reactivate the account.`}
+                    confirmLabel="Yes, suspend"
+                    confirmColor="bg-amber-600 hover:bg-amber-700"
+                    onConfirm={confirmSuspend}
+                    onCancel={() => setConfirmAction(null)}
+                />
+            )}
+            {confirmAction === "close" && (
+                <ConfirmModal
+                    title="Close this account?"
+                    message={`This will permanently close ${user.name}'s account. This action can't be easily undone.`}
+                    confirmLabel="Yes, close"
+                    confirmColor="bg-red-600 hover:bg-red-700"
+                    onConfirm={confirmClose}
+                    onCancel={() => setConfirmAction(null)}
+                />
+            )}
         </div>
     );
 }
@@ -714,6 +683,67 @@ export const AllUsers = () => {
     const [selected, setSelected] = useState(null);
     const [activeFilter, setActiveFilter] = useState("all");
     const [notifications, setNotifications] = useState([]);
+    const [fetchError, setFetchError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        async function fetchUsers() {
+            try {
+                const res = await fetch("http://localhost:8080/admin/users", {
+                    credentials: "include",
+                });
+                if (!res.ok) throw new Error("Failed to fetch users");
+                const data = await res.json();
+
+                const mapped = (data || []).map((u) => ({
+                    id: u.id,
+                    name: u.fullName,
+                    email: u.email,
+                    phone: u.phone,
+                    accountNumber: u.accountNumber,
+                    balance: `$${Number(u.balance).toFixed(2)}`,
+                    kycStatus: (u.kycStatus || "unverified").toLowerCase(),
+                    status: (u.status || "pending").toLowerCase(),
+                    createdat: new Date(u.createdat).toLocaleDateString("en-US", {
+                        day: "2-digit", month: "short", year: "numeric",
+                    }),
+
+                }));
+
+                setUsers(mapped);
+            } catch (err) {
+                setFetchError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchUsers();
+    }, []);
+
+
+    {
+        loading ? (
+            <p className="text-sm text-zen-light-muted dark:text-zen-muted">Loading users…</p>
+        ) : fetchError ? (
+            <p className="text-sm text-red-500">Error: {fetchError}</p>
+        ) : selected ? (
+            <UserDetail
+                user={selected}
+                onBack={() => setSelected(null)}
+                onToggleSuspend={handleToggleSuspend}
+                onCloseAccount={handleCloseAccount}
+                onSendMessage={handleSendMessage}
+            />
+        ) : (
+            <UsersList
+                users={users}
+                activeFilter={activeFilter}
+                onFilterChange={setActiveFilter}
+                onSelect={setSelected}
+            />
+        )
+    }
 
     // Keep the open detail view in sync after any mutation, same reasoning
     // as CardRequests.jsx's syncSelected.

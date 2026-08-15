@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"zenvault-backend/db"
@@ -12,6 +13,7 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	u.first_name, 
 	u.last_name,
 	 u.email,
+	 u.phone,
 	 a.account_number,
 	  a.balance,
 	    u.created_at, 
@@ -19,7 +21,7 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 		u.status
 	
 	FROM users u
-	JOIN accounts a ON a.user_id = u.id
+	LEFT JOIN accounts a ON a.user_id = u.id
 	ORDER  BY u.created_at DESC
 	`)
 
@@ -33,10 +35,11 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	var users []map[string]interface{}
 
 	for rows.Next() {
-		var id, firstname, lastname, email, AccountNo, createdAt, kycStatus, Status string
-		var balance float64
+		var id, firstname, lastname, email, phone, createdat, kycStatus, Status string
+		var AccountNo sql.NullString
+		var balance sql.NullFloat64
 
-		if err := rows.Scan(&id, &firstname, &lastname, &email, &AccountNo, &balance, &createdAt, &kycStatus, &Status); err != nil {
+		if err := rows.Scan(&id, &firstname, &lastname, &email, &phone, &AccountNo, &balance, &createdat, &kycStatus, &Status); err != nil {
 			http.Error(w, "Failed to scan user", http.StatusInternalServerError)
 			return
 		}
@@ -45,11 +48,12 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 			"id":            id,
 			"fullName":      firstname + " " + lastname,
 			"email":         email,
-			"accountNumber": AccountNo,
-			"balance":       balance,
-			"createdAt":     createdAt,
+			"accountNumber": AccountNo.String,
+			"balance":       balance.Float64,
+			"createdat":     createdat,
 			"kycStatus":     kycStatus,
 			"status":        Status,
+			"phone":         phone,
 		})
 
 	}
