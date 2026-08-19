@@ -40,6 +40,7 @@ func main() {
 
 	mux.HandleFunc("/api/register", CorsMiddleware(handlers.Register))
 	mux.HandleFunc("/api/login", CorsMiddleware(handlers.Login))
+	mux.HandleFunc("/api/change-pin", CorsMiddleware(middleware.RequireAuth(handlers.ChangePIN)))
 	mux.HandleFunc("/api/contactus", CorsMiddleware(handlers.RecieveEmail))
 	mux.HandleFunc("/api/me", CorsMiddleware(middleware.RequireAuth(handlers.Me)))
 	mux.HandleFunc("/api/logout", CorsMiddleware(middleware.RequireAuth(handlers.Logout)))

@@ -103,25 +103,26 @@ const LocalTransfer = ({ theme, setTheme }) => {
     // ── Success Screen ──
     if (success) {
         return (
-            <div className='space-y-6'>
-                <div className='flex items-center justify-between px-4'>
+            <div className='min-h-full bg-slate-50 px-4 py-6 dark:bg-zen-bg sm:px-6'>
+                <div className='mx-auto max-w-5xl space-y-6'>
+                <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2 text-zen-light-muted dark:text-zen-muted text-sm'>
                         <CalendarDays size={16} /><span>{date}</span>
                     </div>
                     <ThemeToggleButton theme={theme} setTheme={setTheme} />
                 </div>
 
-                <div className='max-w-md mx-auto'>
-                    <div className='bg-white dark:bg-zen-card border border-gray-200 dark:border-white/10 rounded-2xl p-10 flex flex-col items-center text-center gap-4'>
-                        <div className='bg-green-100 dark:bg-green-900/30 rounded-full p-5'>
+                <div className='mx-auto max-w-md'>
+                    <div className='rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-[0_12px_32px_rgba(15,23,42,0.08)] dark:border-zen-border dark:bg-zen-card'>
+                        <div className='mx-auto flex w-fit rounded-full bg-emerald-50 p-5 dark:bg-emerald-950/30'>
                             <CheckCircle2 className='w-12 h-12 text-green-500' />
                         </div>
-                        <h2 className='text-xl font-bold text-zen-light-text dark:text-zen-text'>Transfer Successful!</h2>
-                        <p className='text-zen-light-muted dark:text-zen-muted text-sm'>
+                        <h2 className='mt-4 text-xl font-bold text-zen-light-text dark:text-zen-text'>Transfer successful</h2>
+                        <p className='mt-2 text-sm text-zen-light-muted dark:text-zen-muted'>
                             You sent <span className='text-zen-primary font-bold'>${parseFloat(form.amount).toFixed(2)}</span> to <span className='font-semibold text-zen-light-text dark:text-zen-text'>{form.beneficiaryName}</span>
                         </p>
 
-                        <div className='w-full bg-gray-50 dark:bg-zen-bg rounded-xl p-4 space-y-2.5 mt-2'>
+                        <div className='mt-6 w-full space-y-2.5 rounded-xl border border-slate-200 bg-slate-50 p-4 text-left dark:border-zen-border dark:bg-zen-bg'>
                             {[
                                 { label: 'Recipient', value: form.beneficiaryName },
                                 { label: 'Account', value: `****${form.accountNumber.slice(-4)}` },
@@ -139,19 +140,21 @@ const LocalTransfer = ({ theme, setTheme }) => {
 
                         <button
                             onClick={handleReset}
-                            className='w-full py-3 rounded-xl bg-zen-primary hover:bg-zen-secondary text-white font-bold text-sm transition mt-2'
+                            className='mt-6 w-full rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-zen-primary dark:hover:bg-zen-secondary'
                         >
                             Make Another Transfer
                         </button>
                     </div>
                 </div>
 
+                </div>
             </div>
         )
     }
 
     return (
-        <div className='space-y-6 px-3' onClick={() => { setShowNotif(false); }}>
+        <div className='min-h-full bg-slate-50 px-4 py-6 dark:bg-zen-bg sm:px-6' onClick={() => { setShowNotif(false); }}>
+            <div className='mx-auto max-w-6xl space-y-6'>
 
             {/* ── Top bar ── */}
             <div className='hidden xl:flex items-center justify-between'>
@@ -177,24 +180,21 @@ const LocalTransfer = ({ theme, setTheme }) => {
             </div>
 
             {/* ── Page heading ── */}
-            <div>
-                <h1 className='text-2xl font-bold text-zen-light-text dark:text-zen-text'>Local Transfer</h1>
-                <p className='text-sm text-zen-light-muted dark:text-zen-muted mt-0.5'>
-                    <span className='hover:underline cursor-pointer'>Dashboard</span>
-                    <span className='mx-2'>›</span>
-                    <span>Local Transfer</span>
-                </p>
+            <div className='border-b border-slate-200 pb-5 dark:border-zen-border'>
+                <p className='text-xs font-semibold uppercase tracking-[0.16em] text-zen-primary'>Payments</p>
+                <h1 className='mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-zen-text'>Local transfer</h1>
+                <p className='mt-1 text-sm text-slate-500 dark:text-zen-muted'>Send money securely to an account within your country.</p>
             </div>
 
-            <div className='grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6'>
+            <div className='grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_320px]'>
 
                 {/* ── Main Form Card ── */}
-                <div className='bg-white dark:bg-zen-card border border-gray-200 dark:border-white/10 rounded-2xl'>
+                <div className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:border-zen-border dark:bg-zen-card'>
 
                     {/* Card Header */}
-                    <div className='flex items-center gap-3 p-5 border-b border-gray-200 dark:border-white/10'>
-                        <div className='bg-zen-primary/10 dark:bg-[#0f1d4a] border border-zen-primary/20 rounded-xl p-2.5'>
-                            <ArrowRightLeft className='w-5 h-5 text-zen-primary' />
+                    <div className='flex items-center gap-3 border-b border-slate-200 bg-slate-50/80 p-5 dark:border-zen-border dark:bg-zen-bg/40'>
+                        <div className='rounded-xl bg-slate-900 p-2.5 text-white dark:bg-zen-primary'>
+                            <ArrowRightLeft className='h-5 w-5' />
                         </div>
                         <div>
                             <h3 className='text-zen-light-text dark:text-zen-text font-semibold'>Transfer Details</h3>
@@ -203,30 +203,30 @@ const LocalTransfer = ({ theme, setTheme }) => {
                     </div>
 
                     {/* ── Step Progress ── */}
-                    <div className='flex items-center px-6 pt-6 mb-2'>
+                    <div className='mb-1 flex items-center px-6 pt-6'>
                         {steps.map((s, i) => (
                             <div key={s.id} className='flex items-center flex-1 last:flex-none'>
                                 <div className='flex flex-col items-center gap-1'>
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${step > s.id ? 'bg-zen-primary border-zen-primary text-white' : step === s.id ? 'border-zen-primary text-zen-primary' : 'border-gray-200 dark:border-zen-border text-zen-light-muted dark:text-zen-muted'}`}>
+                                    <div className={`flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold transition-all ${step > s.id ? 'border-slate-900 bg-slate-900 text-white dark:border-zen-primary dark:bg-zen-primary' : step === s.id ? 'border-slate-900 bg-white text-slate-900 dark:border-zen-primary dark:bg-zen-card dark:text-zen-text' : 'border-slate-200 text-slate-400 dark:border-zen-border dark:text-zen-muted'}`}>
                                         {step > s.id ? <ShieldCheck className='w-4 h-4' /> : s.id}
                                     </div>
                                     <span className={`text-[10px] font-medium hidden sm:block whitespace-nowrap ${step >= s.id ? 'text-zen-light-text dark:text-zen-text' : 'text-zen-light-muted dark:text-zen-muted'}`}>{s.label}</span>
                                 </div>
                                 {i < steps.length - 1 && (
-                                    <div className={`flex-1 h-0.5 mx-2 mb-4 transition-colors ${step > s.id ? 'bg-zen-primary' : 'bg-gray-200 dark:bg-zen-border'}`} />
+                                    <div className={`mb-4 mx-2 h-0.5 flex-1 transition-colors ${step > s.id ? 'bg-slate-900 dark:bg-zen-primary' : 'bg-slate-200 dark:bg-zen-border'}`} />
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    <div className='p-6 space-y-5'>
+                    <div className='space-y-6 p-5 sm:p-6'>
 
                         {/* ── STEP 1: Beneficiary ── */}
                         {step === 1 && (
                             <>
                                 {/* Recent Beneficiaries quick-fill */}
                                 <div>
-                                    <p className='text-xs font-semibold text-zen-light-muted dark:text-zen-muted uppercase tracking-wider mb-2'>Recent</p>
+                                    <p className='mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-zen-muted'>Recent beneficiaries</p>
                                     <div className='flex gap-3 overflow-x-auto pb-1'>
                                         {recentBeneficiaries.map(b => (
                                             <button
@@ -235,7 +235,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                                 onClick={() => fillBeneficiary(b)}
                                                 className='flex flex-col items-center gap-1.5 shrink-0 group'
                                             >
-                                                <div className={`${b.color} w-11 h-11 rounded-full flex items-center justify-center text-white text-xs font-bold ring-2 ring-transparent group-hover:ring-zen-primary transition`}>
+                                                <div className={`${b.color} flex h-11 w-11 items-center justify-center rounded-full text-xs font-bold text-white ring-2 ring-transparent transition group-hover:ring-slate-900 dark:group-hover:ring-zen-primary`}>
                                                     {b.initials}
                                                 </div>
                                                 <span className='text-[10px] text-zen-light-muted dark:text-zen-muted w-14 text-center truncate'>{b.name.split(' ')[0]}</span>
@@ -244,7 +244,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                     </div>
                                 </div>
 
-                                <div className='border-t border-gray-100 dark:border-white/5 pt-4 space-y-4'>
+                                <div className='space-y-4 border-t border-slate-100 pt-5 dark:border-zen-border'>
                                     {/* Beneficiary Name */}
                                     <div>
                                         <label className='block text-sm font-semibold text-zen-light-text dark:text-zen-text mb-1.5'>Beneficiary Name</label>
@@ -255,7 +255,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                                 placeholder='Full name of recipient'
                                                 value={form.beneficiaryName}
                                                 onChange={e => update('beneficiaryName', e.target.value)}
-                                                className='w-full pl-10 pr-4 py-3 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-sm focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition'
+                                                className='w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                             />
                                         </div>
                                     </div>
@@ -271,7 +271,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                                 placeholder='Enter account number'
                                                 value={form.accountNumber}
                                                 onChange={e => update('accountNumber', e.target.value.replace(/\D/g, ''))}
-                                                className='w-full pl-10 pr-4 py-3 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-sm focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition font-mono tracking-wider'
+                                                className='w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 font-mono text-sm tracking-wider text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                             />
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                                 type='text'
                                                 value={form.bankName}
                                                 onChange={e => update('bankName', e.target.value)}
-                                                className='w-full pl-10 pr-4 py-3 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-sm focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition'
+                                                className='w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                             />
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                         {step === 2 && (
                             <>
                                 {/* Mini beneficiary recap */}
-                                <div className='flex items-center gap-3 bg-blue-50 dark:bg-zen-bg rounded-xl px-4 py-3'>
+                                <div className='flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-zen-border dark:bg-zen-bg'>
                                     <div className='bg-zen-primary/20 w-9 h-9 rounded-full flex items-center justify-center text-zen-primary font-bold text-sm shrink-0'>
                                         {form.beneficiaryName.charAt(0).toUpperCase()}
                                     </div>
@@ -321,7 +321,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                             placeholder='0.00'
                                             value={form.amount}
                                             onChange={e => update('amount', e.target.value)}
-                                            className='w-full pl-10 pr-4 py-4 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-xl font-bold focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition font-mono'
+                                            className='w-full rounded-xl border border-slate-200 bg-slate-50 py-4 pl-10 pr-4 font-mono text-xl font-bold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                         />
                                     </div>
                                     <p className='text-xs text-zen-light-muted dark:text-zen-muted mt-1.5'>
@@ -341,7 +341,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                             placeholder='What is this transfer for?'
                                             value={form.note}
                                             onChange={e => update('note', e.target.value)}
-                                            className='w-full pl-10 pr-4 py-3 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-sm focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition resize-none'
+                                            className='w-full resize-none rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                         />
                                     </div>
                                 </div>
@@ -354,7 +354,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                 {/* Full Summary */}
                                 <div>
                                     <p className='text-xs font-semibold text-zen-light-muted dark:text-zen-muted uppercase tracking-wider mb-3'>Transfer Summary</p>
-                                    <div className='bg-gray-50 dark:bg-zen-bg rounded-xl p-4 space-y-3'>
+                                    <div className='space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-zen-border dark:bg-zen-bg'>
                                         {[
                                             { label: 'To', value: form.beneficiaryName },
                                             { label: 'Account', value: `****${form.accountNumber.slice(-4)}` },
@@ -389,7 +389,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                             placeholder='••••'
                                             value={form.pin}
                                             onChange={e => update('pin', e.target.value.replace(/\D/g, '').slice(0, 4))}
-                                            className='w-full pl-10 pr-10 py-3 rounded-xl bg-blue-50/80 dark:bg-zen-bg border border-blue-200 dark:border-zen-border text-zen-light-text dark:text-zen-text placeholder:text-zen-light-muted dark:placeholder:text-zen-muted text-lg tracking-[0.5em] font-bold text-center focus:outline-none focus:ring-2 focus:ring-zen-primary/50 focus:border-zen-primary transition'
+                                            className='w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-10 text-center text-lg font-bold tracking-[0.5em] text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:bg-white focus:ring-4 focus:ring-slate-900/5 dark:border-zen-border dark:bg-zen-bg dark:text-zen-text dark:placeholder:text-zen-muted dark:focus:border-zen-primary dark:focus:bg-zen-card dark:focus:ring-zen-primary/15'
                                         />
                                         <button
                                             type='button'
@@ -409,7 +409,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
 
                         {/* ── Error ── */}
                         {error && (
-                            <div className='flex items-center gap-2 text-red-500 text-sm'>
+                            <div className='flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-300'>
                                 <AlertCircle className='w-4 h-4 shrink-0' />
                                 {error}
                             </div>
@@ -421,7 +421,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                 <button
                                     type='button'
                                     onClick={handleBack}
-                                    className='flex items-center justify-center gap-2 flex-1 py-3 rounded-xl border border-gray-200 dark:border-zen-border text-zen-light-text dark:text-zen-text font-bold text-sm hover:bg-gray-50 dark:hover:bg-zen-bg transition active:scale-[0.98]'
+                                    className='flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-[0.98] dark:border-zen-border dark:text-zen-text dark:hover:bg-zen-bg'
                                 >
                                     <ArrowLeft className='w-4 h-4' /> Back
                                 </button>
@@ -431,7 +431,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                 <button
                                     type='button'
                                     onClick={handleNext}
-                                    className='flex items-center justify-center gap-2 flex-1 py-3 rounded-xl bg-zen-primary hover:bg-zen-secondary text-white font-bold text-sm transition active:scale-[0.98]'
+                                    className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 active:scale-[0.98] dark:bg-zen-primary dark:hover:bg-zen-secondary'
                                 >
                                     Continue <ArrowRight className='w-4 h-4' />
                                 </button>
@@ -440,7 +440,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                     type='button'
                                     onClick={handleSubmit}
                                     disabled={loading}
-                                    className='flex items-center justify-center gap-2 flex-1 py-3 rounded-xl bg-zen-primary hover:bg-zen-secondary text-white font-bold text-sm transition active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed'
+                                    className='flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-zen-primary dark:hover:bg-zen-secondary'
                                 >
                                     {loading ? (
                                         <span className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin' />
@@ -458,8 +458,10 @@ const LocalTransfer = ({ theme, setTheme }) => {
                 <div className='hidden xl:block space-y-4'>
 
                     {/* Live Summary */}
-                    <div className='bg-white dark:bg-zen-card border border-gray-200 dark:border-white/10 rounded-2xl p-5'>
-                        <h3 className='text-zen-light-text dark:text-zen-text font-semibold mb-4 text-sm'>Live Summary</h3>
+                    <div className='rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,0.05)] dark:border-zen-border dark:bg-zen-card'>
+                        <p className='text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-zen-muted'>Transfer review</p>
+                        <h3 className='mt-1 text-base font-semibold text-zen-light-text dark:text-zen-text'>Live summary</h3>
+                        <div className='my-4 border-t border-slate-100 dark:border-zen-border' />
                         <div className='space-y-3'>
                             {[
                                 { label: 'To', value: form.beneficiaryName || '—' },
@@ -483,7 +485,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                     </div>
 
                     {/* Recent Beneficiaries */}
-                    <div className='bg-white dark:bg-zen-card border border-gray-200 dark:border-white/10 rounded-2xl p-5'>
+                    <div className='rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,0.05)] dark:border-zen-border dark:bg-zen-card'>
                         <h3 className='text-zen-light-text dark:text-zen-text font-semibold mb-4 text-sm'>Recent Beneficiaries</h3>
                         <div className='space-y-3'>
                             {recentBeneficiaries.map(b => (
@@ -491,7 +493,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                                     key={b.name}
                                     type='button'
                                     onClick={() => { fillBeneficiary(b); setStep(1) }}
-                                    className='w-full flex items-center gap-3 p-2.5 rounded-xl hover:bg-blue-50 dark:hover:bg-white/5 transition text-left group'
+                                    className='group flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition hover:bg-slate-50 dark:hover:bg-white/5'
                                 >
                                     <div className={`${b.color} w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0`}>
                                         {b.initials}
@@ -507,7 +509,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
                     </div>
 
                     {/* Security note */}
-                    <div className='flex items-start gap-3 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800/30 rounded-xl p-4'>
+                    <div className='flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-800/30 dark:bg-emerald-900/10'>
                         <ShieldCheck className='w-4 h-4 text-green-500 mt-0.5 shrink-0' />
                         <p className='text-xs text-green-700 dark:text-green-400 leading-relaxed'>
                             All transfers are protected with bank-grade encryption and require PIN verification before processing.
@@ -518,6 +520,7 @@ const LocalTransfer = ({ theme, setTheme }) => {
             </div>
 
 
+            </div>
         </div>
     )
 }

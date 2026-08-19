@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
 
         if (!res.ok) {
             const data = await res.json().catch(() => ({}))
-            throw new Error(data.error || 'Invalid email or password.')
+            throw new Error(data.error || 'Invalid email or Password.')
         }
 
         // Cookie is now set by the server. Call checkAuth so that the state

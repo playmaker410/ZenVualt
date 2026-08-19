@@ -31,7 +31,7 @@ const navItems = [
         items: [
             { icon: FileText, label: 'Loan Request', path: '/dashboard/loan-request' },
             { icon: RefreshCw, label: 'IRS Tax Refund', path: '/dashboard/tax-refund' },
-            { icon: History, label: 'Loan History', path: '/dashboard/loan-history' },
+
         ]
     },
     {

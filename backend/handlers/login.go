@@ -29,10 +29,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var id int
 	var firstname, lastname, email, StoredPassword, AccountNo string
 
-	err = db.DB.QueryRow(`SELECT u.id, u.first_name,  u.last_name, u.password, u.email , a.account_number 
-	FROM users u
-	JOIN accounts  a ON a.user_id = u.id
-	 WHERE email = ?`, req.Email).Scan(&id, &firstname, &lastname, &StoredPassword, &email, &AccountNo)
+	err = db.DB.QueryRow(`SELECT u.id,
+	   u.first_name,
+	   u.last_name,
+	   u.password,
+	   u.email ,
+		a.account_number 
+		FROM users u
+		JOIN accounts  a ON a.user_id = u.id
+		WHERE u.email = ?`, req.Email).Scan(&id, &firstname, &lastname, &StoredPassword, &email, &AccountNo)
 
 	if err != nil {
 		SendError(w, "Invalid Email or Password", http.StatusUnauthorized)
@@ -42,13 +47,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err = bcrypt.CompareHashAndPassword([]byte(StoredPassword), []byte(req.Password))
 
 	if err != nil {
-		http.Error(w, "Invalid email or password", http.StatusUnauthorized)
+		SendError(w, "Invalid email or password", http.StatusUnauthorized)
 		return
 	}
 
 	token, err := auth.GenarateToken(id)
 	if err != nil {
-		SendError(w, "Error getting token", http.StatusInternalServerError)
+		SendError(w, "Failed to create authentication token", http.StatusInternalServerError)
 		return
 	}
 

@@ -9,7 +9,7 @@ const BottomNav = () => {
         { label: 'Home', icon: <Home size={22} />, path: '/dashboard/overview' },
         { label: 'Stats', icon: <BarChart2 size={22} />, path: '/dashboard/transactions' },
         { label: 'Cards', icon: <CreditCard size={22} />, path: '/dashboard/cards' },
-        { label: 'Profile', icon: <User size={22} />, path: '/dashboard/profile' },
+        { label: 'Profile', icon: <User size={22} />, path: '/dashboard/settings' },
     ]
 
     return (
