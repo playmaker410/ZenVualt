@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"zenvault-backend/db"
 	"zenvault-backend/handlers"
 	"zenvault-backend/middleware"
@@ -12,9 +13,13 @@ import (
 )
 
 func CorsMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	allowedOrigin := os.Getenv("FRONTEND_URL")
+	if allowedOrigin == "" {
+		allowedOrigin = "http://localhost:5173"
+	}
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
-		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT, PATCH, DELETE,OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
@@ -48,7 +53,11 @@ func main() {
 	mux.HandleFunc("/api/adminlogout", CorsMiddleware(middleware.RequireAdminAuth(handlers.AdminLogout)))
 	mux.HandleFunc("/api/admin_me", CorsMiddleware(middleware.RequireAdminAuth(handlers.AdminMe)))
 	mux.Handle("/admin/users", CorsMiddleware(middleware.RequireAdminAuth(handlers.GetAllUsers)))
+	port := os.Getenv("PORT")
 
-	fmt.Println("Zenvault backend starting on port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	if port == "" {
+		port = "8080"
+	}
+	fmt.Printf("Zenvault backend starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, mux))
 }

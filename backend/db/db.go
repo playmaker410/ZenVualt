@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -12,24 +13,50 @@ import (
 var DB *sql.DB
 
 func Connect() {
-	var err error
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	dbTLS := os.Getenv("DB_TLS")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
+	// Local development defaults
+	if dbHost == "" {
+		dbHost = "127.0.0.1"
+	}
+
+	if dbPort == "" {
+		dbPort = "3306"
+	}
+
+	if dbTLS == "" {
+		dbTLS = "false"
+	}
+
+	dsn := fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?parseTime=true&tls=%s",
+		dbUser,
+		dbPassword,
+		dbHost,
+		dbPort,
+		dbName,
+		dbTLS,
 	)
+
+	var err error
 
 	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
-		log.Fatal("Error caught while connecting to database", err)
+		log.Fatal("Error initializing database connection:", err)
 	}
 
-	err = DB.Ping()
+	DB.SetMaxOpenConns(25)
+	DB.SetMaxIdleConns(10)
+	DB.SetConnMaxLifetime(5 * time.Minute)
 
-	if err != nil {
-		log.Fatal("Cant reach the database, something is incorrect", err)
+	if err = DB.Ping(); err != nil {
+		log.Fatal("Cannot connect to database:", err)
 	}
 
-	log.Println("Log in Successful")
+	log.Println("Database connected successfully")
 }
