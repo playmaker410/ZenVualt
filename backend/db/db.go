@@ -1,13 +1,15 @@
 package db
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-sql-driver/mysql"
 )
 
 var DB *sql.DB
@@ -20,7 +22,6 @@ func Connect() {
 	dbName := os.Getenv("DB_NAME")
 	dbTLS := os.Getenv("DB_TLS")
 
-	// Local development defaults
 	if dbHost == "" {
 		dbHost = "127.0.0.1"
 	}
@@ -29,8 +30,30 @@ func Connect() {
 		dbPort = "3306"
 	}
 
-	if dbTLS == "" {
-		dbTLS = "false"
+	tlsName := "false"
+
+	if dbTLS == "true" {
+		caCert, err := os.ReadFile("certs/ca.pem")
+		if err != nil {
+			log.Fatal("Cannot read Aiven CA certificate:", err)
+		}
+
+		certPool := x509.NewCertPool()
+
+		if ok := certPool.AppendCertsFromPEM(caCert); !ok {
+			log.Fatal("Failed to load Aiven CA certificate")
+		}
+
+		err = mysql.RegisterTLSConfig("aiven", &tls.Config{
+			RootCAs:    certPool,
+			ServerName: dbHost,
+			MinVersion: tls.VersionTLS12,
+		})
+		if err != nil {
+			log.Fatal("Failed to register TLS config:", err)
+		}
+
+		tlsName = "aiven"
 	}
 
 	dsn := fmt.Sprintf(
@@ -40,7 +63,7 @@ func Connect() {
 		dbHost,
 		dbPort,
 		dbName,
-		dbTLS,
+		tlsName,
 	)
 
 	var err error
