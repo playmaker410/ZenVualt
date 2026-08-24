@@ -138,8 +138,8 @@ func Register(w http.ResponseWriter, r *http.Request) { //function that accepts 
 		Value:    token,
 		HttpOnly: true,
 		Path:     "/",
-		Secure:   false,
-		SameSite: http.SameSiteLaxMode,
+		Secure:   true,
+		SameSite: http.SameSiteNoneMode,
 		Expires:  time.Now().Add(24 * time.Hour),
 	})
 

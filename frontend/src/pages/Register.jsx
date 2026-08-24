@@ -67,6 +67,7 @@ const Register = ({ theme }) => {
     const [showConfirmPin, setShowConfirmPin] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const API_URL = import.meta.env.VITE_API_URL;
 
 
     const [form, setForm] = useState({
@@ -145,7 +146,7 @@ const Register = ({ theme }) => {
         setError('')
 
         try {
-            const res = await fetch('http://localhost:8080/api/register', {
+            const res = await fetch(`${API_URL}/api/register`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
