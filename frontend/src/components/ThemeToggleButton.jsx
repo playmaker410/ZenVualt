@@ -1,31 +1,19 @@
-import React, { useEffect } from 'react'
-import assets from "../assets/assets"
-
+import { Moon, Sun } from 'lucide-react'
 
 const ThemeToggleButton = ({ theme, setTheme }) => {
-    useEffect(() => {
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setTheme(theme || (prefersDarkMode ? 'dark' : 'light'))
-    }, [])
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-        localStorage.setItem('theme', theme)
-    }, [theme])
-    return (
-        <>
-            <button>
-                {theme === 'dark' ? (
-                    <img onClick={() => setTheme('light')} src={assets.sun_icon} className='size-8.5 p-1.5 border border-gray-500 rounded-full' alt="" />
-                ) : (
-                    <img onClick={() => setTheme('dark')} src={assets.moon_icon} className="size-8.5 p-1.5 border border-gray-500 rounded-full" alt="" />
-                )}
-            </button>
+  const isDark = theme === 'dark'
 
-        </>
-    )
+  return (
+    <button
+      type='button'
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className='grid size-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:text-zen-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zen-primary dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-blue-400/40'
+    >
+      {isDark ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
+  )
 }
-export default ThemeToggleButton    
+
+export default ThemeToggleButton

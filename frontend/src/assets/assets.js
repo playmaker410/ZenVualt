@@ -8,7 +8,7 @@ import twitter_icon from './twitter_icon.svg'
 import sun_icon from './sun_icon.svg'
 import moon_icon from './moon_icon.svg'
 import darkbglogo from './darkbglogo.png'
-import lglogo from './lglogo.png'
+import lglogo from './lglogo-trimmed.png'
 import bglight from './bglight-removed.png'
 import bgdark from  './bgdark-rm.png'
 import customer from './customer.png'
@@ -35,6 +35,7 @@ import breadcrumb  from  './breadcrumb-1.png'
 import personal   from   './personal_03.png'
 import logindk from './logdark.png'
 import login   from  './login.png'
+import zenvaultHero from './zenvault-hero-v2.webp'
 
 const assets = {
   lglogo,
@@ -74,6 +75,7 @@ const assets = {
   personal,
   logindk,
   login,
+  zenvaultHero,
   
 
   

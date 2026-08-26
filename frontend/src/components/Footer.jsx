@@ -1,4 +1,3 @@
-import React from "react";
 import assets from '../assets/assets'
 
 
@@ -25,7 +24,7 @@ const Footer = () => {
                             className='hidden dark:block w-32'
                         />
                         <p className='text-sm leading-7 text-zen-light-muted dark:text-zen-muted max-w-xs'>
-                            We are now one of the largest digital banking providers, dedicated to innovating, simplifying, and humanizing banking for everyone.
+                            Modern banking tools designed to make managing, moving, and growing your money feel clear and secure.
                         </p>
                         {/* Social icons */}
                         <div className='flex gap-4 mt-1'>
@@ -94,7 +93,7 @@ const Footer = () => {
                 {/* Divider */}
                 <div className='border-t border-zen-light-border dark:border-zen-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zen-light-muted dark:text-zen-muted'>
                     <p>© {new Date().getFullYear()} Zenvault. All rights reserved.</p>
-                    <div className='flex gap-6'>
+                    <div className='flex flex-wrap justify-center gap-x-5 gap-y-2'>
                         <a href="#" className='hover:text-zen-primary transition-colors'>Privacy Policy</a>
                         <a href="#" className='hover:text-zen-primary transition-colors'>Terms of Service</a>
                         <a href="#" className='hover:text-zen-primary transition-colors'>Cookie Policy</a>

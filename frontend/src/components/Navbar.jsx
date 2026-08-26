@@ -1,106 +1,168 @@
-import React, { useState } from 'react';
-import assets from '../assets/assets';
-import { Menu, User, X, BriefcaseAlt2, Home, CreditCardAlt, PriceTag, InfoCircle } from '@boxicons/react'
-import { Link, NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { NavLink, Link } from 'react-router-dom'
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  CreditCard,
+  HandCoins,
+  Headphones,
+  Home,
+  UserRound,
+} from 'lucide-react'
+import assets from '../assets/assets'
 import ThemeToggleButton from './ThemeToggleButton'
-{/*Navbar open and close*/ }
+
+const navItems = [
+  { label: 'Home', to: '/', icon: Home, end: true },
+  { label: 'Business', to: '/business', icon: BriefcaseBusiness },
+  { label: 'Personal', to: '/personal', icon: UserRound },
+  { label: 'Cards', to: '/card', icon: CreditCard },
+  { label: 'Loans', to: '/loan', icon: HandCoins },
+  { label: 'Contact', to: '/contact', icon: Headphones },
+]
+
 const Navbar = ({ theme, setTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
 
-  {/*Desktop Menu*/ }
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [isMenuOpen])
+
+  const navLinkClass = ({ isActive }) =>
+    `relative py-2 text-sm font-semibold transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-zen-primary after:transition-transform after:duration-300 ${isActive
+      ? 'text-zen-primary after:scale-x-100'
+      : 'text-slate-600 after:scale-x-0 hover:text-slate-950 hover:after:scale-x-100 dark:text-slate-300 dark:hover:text-white'
+    }`
+
   return (
-
-
-    <div className='h-20 w-full flex  justify-between items-center px-5 lg:px-5 md:px-10 
-      sm:px-5 sticky top-0 z-50  font-medium bg-zen-light-bg drop-shadow-md
-       dark:bg-zen-bg border-b border-gray-200/40 dark:border-white/10  shadow-[0_4px_20px_rgba(0,0,0,0.08)]
-      dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] transition-all duration-300'>
-      {/* logo image here*/}
-
-      <div>
-        <Link to='/'>
-          <img src={theme == 'dark' ? assets.darkbglogo : assets.lglogo} className=' w-32 lg:w-40 md:w-35 sm:w-20 hover:scale-105 transition-all' alt="" />
+    <header className='sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-[#070b18]/85'>
+      <div className='mx-auto flex h-[74px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12'>
+        <Link to='/' onClick={() => setIsMenuOpen(false)} aria-label='Zenvault home' className='relative z-[70] shrink-0'>
+          <img
+            src={theme === 'dark' ? assets.darkbglogo : assets.lglogo}
+            className='h-11 w-32 object-contain object-left sm:w-36'
+            alt='Zenvault'
+          />
         </Link>
-      </div>
 
+        <nav aria-label='Main navigation' className='hidden items-center gap-7 lg:flex'>
+          {navItems.map(({ label, to, end }) => (
+            <NavLink key={to} to={to} end={end} className={navLinkClass}>
+              {label}
+            </NavLink>
+          ))}
+        </nav>
 
-      <div className='hidden lg:flex gap-6 text-md dark:text-white font-semibold text-base '>
-        <NavLink to="/" end className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Home</NavLink>
-        <NavLink to="/buisness" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Buisness</NavLink>
-        <NavLink to="/personal" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Personal</NavLink>
-        <NavLink to="/card" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Card</NavLink>
-        <NavLink to="/loan" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Loans</NavLink>
-        <NavLink to="/contact" className={({ isActive }) => ` hover:text-sky-500 transition-all delay-300 duration-500 dark:text-white ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : ''}`}>Contact Us</NavLink>
-      </div>
-
-
-      {/* Desktop buttons */}
-      <div className='flex gap-2 '>
-        <div className='hidden lg:flex'>
-          <ThemeToggleButton theme={theme} setTheme={setTheme} className='' />
+        <div className='hidden items-center gap-2.5 lg:flex'>
+          <ThemeToggleButton theme={theme} setTheme={setTheme} />
+          <Link
+            to='/login'
+            className='rounded-full px-5 py-2.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+          >
+            Log in
+          </Link>
+          <Link
+            to='/register'
+            className='inline-flex items-center gap-2 rounded-full bg-[#0b5cff] px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_30px_rgba(11,92,255,0.25)] transition-all hover:-translate-y-0.5 hover:bg-[#084bd1]'
+          >
+            Open an account <ArrowUpRight size={16} />
+          </Link>
         </div>
 
-        <Link to='/login'>
-          <button className='hidden lg:flex bg-sky-400 hover:bg-blue-950 transition-colors hover:scale-105 px-9 py-2 rounded-full text-white font-bold text-lg '>
-            Log in
+        <div className='relative z-[70] flex items-center gap-2 lg:hidden'>
+          <ThemeToggleButton theme={theme} setTheme={setTheme} />
+          <button
+            type='button'
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls='mobile-navigation'
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className='flex size-11 flex-col items-center justify-center gap-[5px] rounded-full border border-slate-200 bg-white text-slate-950 shadow-sm transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zen-primary dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white/10'
+          >
+            <span className={`h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+            <span className={`h-0.5 w-5 rounded-full bg-current transition-all duration-200 ${isMenuOpen ? 'scale-x-0 opacity-0' : ''}`} />
+            <span className={`h-0.5 w-5 rounded-full bg-current transition-transform duration-300 ease-out ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
           </button>
-        </Link>
-
-        <Link to='/register'> <button className='hidden lg:flex border-gray-500 border px-5 py-2 rounded-md hover:scale-105 text-lg dark:text-white'>
-          Get Started
-        </button>
-        </Link>
-      </div>
-      {/*Desktop button and Desktop ends here */}
-
-
-
-      {/*================================================================Responsive Navbar ===============================================================================*/}
-
-
-      {/* Mobile menu */}
-      <div className='flex gap-1.5 lg:hidden md:gap-6 '>
-
-        <ThemeToggleButton theme={theme} setTheme={setTheme} />
-        {/*<User color='white' stroke='white' pack='filled' className='lg:hidden bg-black rounded-full' size={window.innerWidth < 768 ? 16 : 32} />*/}
-        <Menu className='lg:hidden text-black dark:text-white w-10 h-10 md:w-8 md-h-10' onClick={() => setIsMenuOpen(!isMenuOpen)} size={window.innerWidth < 768 ? 16 : 32} />
-
+        </div>
       </div>
 
-      <div className={`fixed lg:hidden top-0 left-0 w-[80%]  h-dvh px-4 pt-10 bg-white dark:bg-gray-900 z-50 flex flex-col gap-2 font-semibold dark:text-white text-black  transition-all duration-800 ${isMenuOpen ? "opacity-100 translate-x-0 " : "opacity-0 -translate-x-full "
-        }`}>
-        <X className='ml-auto' onClick={closeMenu} size={window.innerWidth < 768 ? 16 : 32} />
-        <NavLink to="/" end onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><Home size={18} />Home</NavLink>
-        <NavLink to="/buisness" onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><BriefcaseAlt2 size={18} />Buisness</NavLink>
-        <NavLink to="/personal" onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><User size={18} /> Personal</NavLink>
-        <NavLink to="/card" onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><CreditCardAlt size={18} />Card</NavLink>
-        <NavLink to="/loan" onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><PriceTag size={18} />Loans</NavLink>
-        <NavLink to="/contact" onClick={closeMenu} className={({ isActive }) => `p-4 cursor-pointer flex items-center gap-2 ${isActive ? 'text-blue-500' : 'text-black dark:text-white'}`}><InfoCircle size={18} /> Contact Us</NavLink>
-        {/*Mobile Navbar button */}
-        <Link to='/login'>
-          <button onClick={closeMenu} className='w-full bg-zen-primary rounded-md py-4 text-lg font-bold dark:text-white shadow-neon active:scale-105 transition' >
-            Log in
-          </button>
-        </Link>
+      <button
+        type='button'
+        aria-label='Close navigation menu'
+        tabIndex={isMenuOpen ? 0 : -1}
+        onClick={() => setIsMenuOpen(false)}
+        className={`fixed inset-x-0 bottom-0 top-[74px] z-[55] bg-slate-950/45 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${isMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+          }`}
+      />
 
-        <Link to='/register'>
-          <button onClick={closeMenu} className='w-full bg-white dark:text-black text-black rounded-md py-4 text-lg font-bold shadow-neon active:scale-105 transition' >
-            Register
-          </button>
-        </Link>
+      <aside
+        id='mobile-navigation'
+        aria-hidden={!isMenuOpen}
+        className={`fixed right-0 top-[74px] z-[60] flex h-[calc(100dvh-74px)] w-full max-w-[390px] flex-col overflow-y-auto border-l border-slate-200 bg-white px-5 pb-6 pt-6 shadow-[-24px_0_80px_rgba(15,23,42,0.18)] transition-transform duration-500 [transition-timing-function:cubic-bezier(.22,1,.36,1)] dark:border-white/10 dark:bg-[#080d1d] lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+      >
+        <div className='mb-5'>
+          <p className='text-xs font-bold uppercase tracking-[0.18em] text-zen-primary'>Menu</p>
+          <p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>Banking built around you</p>
+        </div>
 
+        <nav aria-label='Mobile navigation' className='flex flex-col gap-1'>
+          {navItems.map(({ label, to, icon: Icon, end }, index) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
+              style={{ transitionDelay: isMenuOpen ? `${80 + index * 35}ms` : '0ms' }}
+              className={({ isActive }) => `group flex items-center justify-between rounded-2xl px-4 py-3.5 transition-all duration-300 ${isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-5 opacity-0'
+                } ${isActive ? 'bg-blue-50 text-[#0b5cff] dark:bg-blue-500/10' : 'text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-white/5'}`}
+            >
+              <span className='flex items-center gap-3.5'>
+                <span className='grid size-9 place-items-center rounded-xl border border-slate-200 bg-white shadow-sm group-hover:border-blue-200 dark:border-white/10 dark:bg-white/5'>
+                  <Icon size={18} />
+                </span>
+                <span className='font-semibold'>{label}</span>
+              </span>
+              <ArrowUpRight size={17} className='opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100' />
+            </NavLink>
+          ))}
+        </nav>
 
+        <div className='mt-auto border-t border-slate-200 pt-5 dark:border-white/10'>
+          <div className='grid grid-cols-2 gap-3'>
+            <Link
+              to='/login'
+              onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
+              className='rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-bold text-slate-800 dark:border-white/15 dark:text-white'
+            >
 
-
-      </div>
-
-
-    </div>
-
-  );
+              Log in
+            </Link>
+            <Link
+              to='/register'
+              onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
+              className='rounded-xl bg-[#0b5cff] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_10px_30px_rgba(11,92,255,0.25)]'
+            >
+              Get started
+            </Link>
+          </div>
+          <p className='mt-5 text-center text-xs text-slate-400'>Secure digital banking · 24/7 support</p>
+        </div>
+      </aside>
+    </header>
+  )
 }
 
-export default Navbar;
+export default Navbar

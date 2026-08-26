@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, BrowserRouter, useLocation, Outlet, Navigate } from 'react-router-dom'
 
 
@@ -78,7 +78,8 @@ const AppLayout = ({ theme, setTheme }) => {
         <Route element={<UserAuthLayout />}>
           {/* Public Route */}
           <Route path="/" element={<Index />} />
-          <Route path="/buisness" element={<Buisness />} />
+          <Route path="/business" element={<Buisness />} />
+          <Route path="/buisness" element={<Navigate to="/business" replace />} />
           <Route path="/personal" element={<Personal />} />
           <Route path="/card" element={<Card />} />
           <Route path="/loan" element={<Loan />} />
