@@ -182,6 +182,7 @@ const Register = ({ theme }) => {
             }
 
         } catch (err) {
+            console.error("Registration error:", err)
             setError('Could not Connect to server ')
             setLoading(false)
         }
