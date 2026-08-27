@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 
 const AuthContext = createContext(null)
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
@@ -30,7 +31,7 @@ export function AuthProvider({ children }) {
     }, [])
 
     const login = useCallback(async (email, password) => {
-        const res = await fetch('http://localhost:8080/api/login', {
+        const res = await fetch(`${API_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -52,7 +53,7 @@ export function AuthProvider({ children }) {
 
     const logout = useCallback(async () => {
         try {
-            await fetch('http://localhost:8080/api/logout', {
+            await fetch(`${API_URL}/api/logout`, {
                 method: 'POST',
                 credentials: 'include',
             })
