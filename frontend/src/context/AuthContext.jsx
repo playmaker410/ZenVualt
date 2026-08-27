@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
 
     const checkAuth = useCallback(async () => {
         try {
-            const res = await fetch('http://localhost:8080/api/me', {
+            const res = await fetch(`${API_URL}/api/me`, {
                 credentials: 'include',
             })
 
