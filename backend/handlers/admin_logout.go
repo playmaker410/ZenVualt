@@ -7,6 +7,11 @@ import (
 )
 
 func AdminLogout(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	http.SetCookie(w, &http.Cookie{
 		Name:     "admin_token",
 		Value:    "",

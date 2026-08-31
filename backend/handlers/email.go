@@ -35,6 +35,10 @@ func SendContactEmail(req ContactUs) error {
 }
 
 func RecieveEmail(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	var em ContactUs
 	err := json.NewDecoder(r.Body).Decode(&em)
 

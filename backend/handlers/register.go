@@ -14,6 +14,11 @@ import (
 
 func Register(w http.ResponseWriter, r *http.Request) { //function that accepts a request and give back a response
 
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	var user models.User
 	// Open the package the user sent, read the JSON inside it, translate it into my Go struct, and place the result inside my variable.
 	err := json.NewDecoder(r.Body).Decode(&user)

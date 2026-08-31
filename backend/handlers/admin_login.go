@@ -19,6 +19,11 @@ type AdminLoginRequest struct {
 }
 
 func AdminLogin(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	var req AdminLoginRequest
 
 	err := json.NewDecoder(r.Body).Decode(&req)

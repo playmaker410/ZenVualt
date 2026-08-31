@@ -10,6 +10,10 @@ import (
 )
 
 func Me(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	userID, ok := r.Context().Value(middleware.UserIdKey).(int)
 
 	if !ok {

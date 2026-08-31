@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 const Contact = () => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const API_URL = import.meta.env.VITE_API_URL;
     // form state
     const [formData, setFormData] = useState({
         name: '',
@@ -25,7 +26,7 @@ const Contact = () => {
         setError('')
 
         try {
-            const res = await fetch('http://localhost:8080/api/contactus', {
+            const res = await fetch(`${API_URL}/api/contactus`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

@@ -9,6 +9,10 @@ import (
 )
 
 func AdminMe(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Mehtod not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	adminID, ok := r.Context().Value(middleware.AdminKey).(int)
 
 	if !ok {

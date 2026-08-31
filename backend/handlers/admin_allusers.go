@@ -8,6 +8,11 @@ import (
 )
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	rows, err := db.DB.Query(`SELECT 
 	u.id,
 	u.first_name, 

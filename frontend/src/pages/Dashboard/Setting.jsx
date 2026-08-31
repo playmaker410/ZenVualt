@@ -33,6 +33,7 @@ const Setting = () => {
     const [pinForm, setPinForm] = useState({ currentPIN: '', newPIN: '', confirmPIN: '' })
     const [pinError, setPinError] = useState('')
     const [isChangingPIN, setIsChangingPIN] = useState(false)
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const copyAccountNumber = async () => {
         if (!user?.account_number) return
@@ -76,7 +77,7 @@ const Setting = () => {
 
         setIsChangingPIN(true)
         try {
-            const response = await fetch('http://localhost:8080/api/change-pin', {
+            const response = await fetch(`${API_URL}/api/change-pin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',

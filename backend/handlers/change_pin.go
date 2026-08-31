@@ -20,6 +20,12 @@ var bankPINPattern = regexp.MustCompile(`^\d{4}$`)
 // ChangePIN verifies the current PIN before replacing its bcrypt hash.
 // It is always called through RequireAuth, so the user ID comes from the signed session.
 func ChangePIN(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPatch {
+		http.Error(w, "Method not Allowed", http.StatusMethodNotAllowed)
+		return
+
+	}
+
 	userID, ok := r.Context().Value(middleware.UserIdKey).(int)
 	if !ok {
 		SendError(w, "Unauthorized", http.StatusUnauthorized)
